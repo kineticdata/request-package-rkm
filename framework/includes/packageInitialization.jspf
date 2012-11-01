@@ -31,6 +31,7 @@
       <%@include file="../helpers/PackageHelper.jspf
 --%>
 <%@include file="../helpers/PackageHelper.jspf" %>
+<%@include file="../helpers/MultiFormSearch.jspf" %>
 <%@include file="../../../../common/framework/helpers/PathHelper.jspf" %>
 
 <%--

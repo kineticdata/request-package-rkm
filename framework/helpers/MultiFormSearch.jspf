@@ -1,0 +1,244 @@
+<%@page import="com.bmc.arsys.api.ARServerUser"%>
+
+<%!
+    public static class MultiFormSearch {
+
+        private static final String TARGETFORM = "AR System Multi-Form Search";
+        // TODO:  Put these values out in a configuration file.
+        private static final String DEFAULT_USERNAME = "appadmin";
+        private static final String DEFAULT_PASSWORD = "appadmin";
+        private static final String DEFAULT_LOCALE = "";
+        private static final String DEFAULT_SERVER = "itsm7internal.kineticdata.com";
+        private static final int DEFAULT_PORT = 3000;
+        String MT_HOST = "itsm7internal.kineticdata.com";
+        String MT_PORT = "80";
+        String MT_ARSERVER = "itsm7internal";
+        String urlStub = "http://" + MT_HOST + ":" + MT_PORT
+                + "/arsys/servlet/ViewFormServlet?form=RKM%3AKnowledgeArticleManager&server="
+                + MT_ARSERVER + "&qual=%27Article%20ID%27%3D%22";
+        private ARServerUser m_serverUser = null;
+        private String m_mustHave = null;
+        private String m_mayHave = null;
+        private String m_mustNotHave = null;
+        private String m_query = null;
+
+        /**
+         *
+         */
+        //public MultiFormSearch() {
+        //}
+
+        public void setServerUser(ARServerUser serverUser) {
+            m_serverUser = serverUser;
+        }
+
+        public ARServerUser getServerUser() {
+            return m_serverUser;
+        }
+
+        public void setMustHave(String mustHave) {
+            m_mustHave = mustHave;
+        }
+
+        public String getMustHave() {
+            return m_mustHave;
+        }
+
+        public void setMayHave(String mayHave) {
+            m_mayHave = mayHave;
+        }
+
+        public String getMayHave() {
+            return m_mayHave;
+        }
+
+        public void setMustNotHave(String mustNotHave) {
+            m_mustNotHave = mustNotHave;
+        }
+
+        public String getMustNotHave() {
+            return m_mustNotHave;
+        }
+
+        public void setQuery(String query) {
+            m_query = query;
+        }
+
+        public String getQuery() {
+            return m_query;
+        }
+
+        /**
+         *
+         * @return @throws com.bmc.arsys.api.ARException
+         * @throws Exception
+         */
+        public String search() throws com.bmc.arsys.api.ARException, Exception {
+            String formQuery = null;
+            java.util.ArrayList<java.util.LinkedHashMap> outputCollection = new java.util.ArrayList();
+
+            // If the context has not been set yet . . .
+            if (m_serverUser == null) {
+                m_serverUser = createARContext(DEFAULT_USERNAME, DEFAULT_PASSWORD,
+                        DEFAULT_LOCALE, DEFAULT_SERVER, DEFAULT_PORT);
+            }
+
+            // If the query string has not been set yet . . .
+            if (m_query == null) {
+                m_query = buildQuery();
+            }
+
+            // Convert the query to a qual
+            com.bmc.arsys.api.QualifierInfo qual = m_serverUser.parseQualification(TARGETFORM, m_query);
+
+            int[] fieldIds = {3010, 3011, 3012, 3013, 3014, 3015, 3016};
+
+            // Run the query and get back EntryInfo data
+            com.bmc.arsys.api.OutputInteger oi = new com.bmc.arsys.api.OutputInteger();
+            java.util.List<com.bmc.arsys.api.Entry> entryList = m_serverUser.getListEntryObjects(
+                    TARGETFORM, qual, com.bmc.arsys.api.Constants.AR_START_WITH_FIRST_ENTRY,
+                    com.bmc.arsys.api.Constants.AR_NO_MAX_LIST_RETRIEVE,
+                    null, fieldIds, false, oi);
+
+            if (entryList.size() > 0) {
+                // Iterate over the List of Entry objects.
+                for (com.bmc.arsys.api.Entry entry : entryList) {
+                    String deepTargetForm = entry.get(3010).getValue().toString();
+                    String deepTargetEntryId = entry.get(3011).getValue().toString();
+
+                    java.util.ArrayList<String> entryIdList = new java.util.ArrayList();
+                    entryIdList.add(deepTargetEntryId);
+
+                    java.util.LinkedHashMap<String, String> myHashMap = new java.util.LinkedHashMap();
+
+                    // 302300502 = Article Title
+                    // 302300507 = DocID
+                    // 6 = Modified Date
+                    // 302311201 = How-To answer field (unlimited)
+                    // 302301007 = KnowledgeSourceName
+                    // 302311206 = Problem solution field (unlimited)
+                    // 302311207 = Known Error "Error" field
+                    // 302311210 = RKM Reference "Reference" field
+                    int[] deepFieldIds = new int[5];
+                    deepFieldIds[0] = 302300502;
+                    deepFieldIds[1] = 302300507;
+                    deepFieldIds[2] = 6;
+                    deepFieldIds[3] = 302301007;
+
+                    // Query for the data in the ultimate target form.
+                    if (deepTargetForm.startsWith("RKM:HowToTemplate")) {
+                        deepFieldIds[4] = 302311201;
+                    } else if (deepTargetForm.startsWith("RKM:ProblemSolution")) {
+                        deepFieldIds[4] = 302311206;
+                    } else if (deepTargetForm.startsWith("RKM:KnownError")) {
+                        deepFieldIds[4] = 302311207;
+                    } else if (deepTargetForm.startsWith("RKM:Reference")) {
+                        deepFieldIds[4] = 302311210;
+                    } else if (deepTargetForm.startsWith("RKM:DecisionTree")) {
+                        deepFieldIds[4] = 302311212;
+                    }
+
+                    java.util.List<com.bmc.arsys.api.Entry> deepEntryList = m_serverUser.getListEntryObjects(
+                            deepTargetForm, entryIdList, deepFieldIds);
+
+                    if (deepEntryList.size() > 0) {
+                        String articleTitle = deepEntryList.get(0).get(302300502).getValue().toString();
+                        String articleId = deepEntryList.get(0).get(302300507).getValue().toString();
+                        String source = deepEntryList.get(0).get(302301007).getValue().toString();
+                        String modifiedDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(6).getValue()).toDate().toString();
+                        String summary = deepEntryList.get(0).get(deepFieldIds[4]).getValue().toString().replaceAll("\\<[^>]*>", "");
+
+                        myHashMap.put("Article Title", articleTitle);
+                        myHashMap.put("Article ID", articleId);
+                        myHashMap.put("Source", source);
+                        myHashMap.put("Modified Date", modifiedDate);
+
+                        if (summary.length() > 128) {
+                            myHashMap.put("Summary", summary.substring(0, 128));
+                        } else {
+                            myHashMap.put("Summary", summary);
+                        }
+
+                        StringBuilder sbu = new StringBuilder();
+                        sbu.append(urlStub);
+                        sbu.append(articleId);
+                        sbu.append("%22");
+                        myHashMap.put("Article URL", sbu.toString());
+
+                        outputCollection.add(myHashMap);
+                    }
+
+                }
+            } else {
+                System.out.println("Crap!  " + oi.toString());
+            }
+
+            java.io.StringWriter out = new java.io.StringWriter();
+            org.json.simple.JSONValue.writeJSONString(outputCollection, out);
+
+            return out.toString();
+        }
+
+        /**
+         * If the ARServerUser context object is null when the search() method
+         * is called, then use the default values to login.
+         *
+         * @param user
+         * @param password
+         * @param locale
+         * @param server
+         * @param port
+         * @return
+         * @throws com.bmc.arsys.api.ARException
+         */
+        private ARServerUser createARContext(
+                String user,
+                String password,
+                String locale,
+                String server,
+                int port)
+                throws com.bmc.arsys.api.ARException, Exception {
+            ARServerUser serverUser = new ARServerUser(user, password, locale, server);
+            serverUser.setPort(port);
+            serverUser.login();
+            return serverUser;
+        }
+
+        private String buildQuery() throws Exception {
+            if ((m_mayHave == null) && (m_mustHave == null) && (m_mustNotHave == null)) {
+                throw new Exception("No search terms were given");
+            }
+
+            // 3001 = 'Search Term: Must Have'
+            // 3002 = 'Search Term: May Have'
+            // 3003 = 'Search Term: Must Not Have'
+            StringBuilder sb = new StringBuilder();
+
+            if (m_mustHave != null) {
+                sb.append("('3001' = \"");
+                sb.append(m_mustHave);
+                sb.append("\")");
+            }
+
+            if (m_mayHave != null) {
+                if (!"".equals(sb.toString())) {
+                    sb.append(" AND ");
+                }
+                sb.append("('3002' = \"");
+                sb.append(m_mayHave);
+                sb.append("\")");
+            }
+
+            if (m_mustNotHave != null) {
+                if (!"".equals(sb.toString())) {
+                    sb.append(" AND ");
+                }
+                sb.append("('3003' = \"");
+                sb.append(m_mustNotHave);
+                sb.append("\")");
+            }
+
+            return sb.toString();
+        }
+    }
+%>
