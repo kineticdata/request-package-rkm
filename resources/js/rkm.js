@@ -1,18 +1,15 @@
 jQuery(document).ready(function() {
-    $("#searchButton").click(function() {
-        $.ajax(BUNDLE.packagePath + "interface/callbacks/RKMQuery.json.jsp",{
-            data: {
-                mustHave: $("#mustHave").val(),
-                mayHave: $("#mayHave").val(),
-                mustNotHave: $("#mustNotHave").val()
-            },
+    jQuery("#searchTerms").submit(function() {
+        jQuery("#results tbody").empty();
+        jQuery.ajax({
+            url: BUNDLE.packagePath + "interface/callbacks/RKMQuery.json.jsp",
+            data: jQuery(this).serialize(),
             success: function(data) {
-                var results = $.parseJSON(data);
-                console.log(results);
+                var results = jQuery.parseJSON(data);
                 for (var i in results) {
-                    var row = $("<tr>");
-                    var article = $("<td>");
-                    var anchor = $("<a>");
+                    var row = jQuery("<tr>");
+                    var article = jQuery("<td>");
+                    var anchor = jQuery("<a>");
                     anchor.attr("href", results[i]["Article URL"]);
                     anchor.text(results[i]["Article Title"]);
                     article.append(anchor);
@@ -20,10 +17,10 @@ jQuery(document).ready(function() {
                     row.append("<td>" + results[i]["Summary"] + "</td>");
                     row.append("<td>" + results[i]["Source"] + "</td>");
                     row.append("<td>" + results[i]["Modified Date"] + "</td>");
-                    $("#results").append(row);
-                               
+                    jQuery("#results").append(row);    
                 }
             }
         });
+        return false; // This will cancel the default form submit action.
     });
 });
