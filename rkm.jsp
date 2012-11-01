@@ -25,9 +25,7 @@
             <%@include file="../../common/interface/fragments/contentHeader.jspf"%>
             <div id="contentBody">
                     <form id="searchTerms">
-                        <div><span>Must Have</span><input type="search" name="mustHave" id="mustHave" value="" /></div>
-                        <div><span>May Have</span><input type="search" name="mayHave" id="mayHave" value="" /></div>
-                        <div><span>Must Not Have</span><input type="search" name="mustNotHave" id="mustNotHave" value="" /></div>
+                        <span>Search Terms</span> <input type="search" name="mustHave" id="mustHave" value="" />
                         <input type="submit" id="searchButton" value="Search" />
                     </form>
                     <table id="results">
