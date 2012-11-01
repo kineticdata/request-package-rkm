@@ -1,0 +1,33 @@
+<%!
+    public static class HowTo {
+        public static final String FORM_NAME = "RKM:HowToTemplate_Manageable_Join";
+        public static final String FIELD_TITLE = "302300502";
+        public static final String FIELD_QUESTION = "302311200";
+        public static final String FIELD_ANSWER = "302311201";
+        public static final String FIELD_TECHNICAL_NOTES = "302311202";
+        public static final String FIELD_ID = "1";
+        public static final String[] FIELD_IDS = new String[] {
+            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+
+        public static HowTo findById(HelperContext context, String id) {
+            HowTo result = null;
+            String qualification = "'"+FIELD_ID+"' = \""+id+"\"";
+            SimpleEntry entry = ArsBase.findSingle(context, FORM_NAME, qualification, FIELD_IDS);
+            if (entry != null) {
+                result = new HowTo(entry);
+            }
+            return result;
+        }
+
+        private SimpleEntry entry;
+        public HowTo(SimpleEntry entry) {
+            this.entry = entry;
+        }
+
+        public String getTitle() {return entry.getEntryFieldValue(FIELD_TITLE);}
+        public String getQuestion() {return entry.getEntryFieldValue(FIELD_QUESTION);}
+        public String getAnswer() {return entry.getEntryFieldValue(FIELD_ANSWER);}
+        public String getTechnicalNotes() {return entry.getEntryFieldValue(FIELD_TECHNICAL_NOTES);}
+        public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
+    }
+%>

@@ -1,0 +1,35 @@
+<%!
+    public static class KnownError {
+        public static final String FORM_NAME = "RKM:KnownErrorTemplate_Manageable_Join";
+        public static final String FIELD_TITLE = "302300502";
+        public static final String FIELD_ERROR = "302311207";
+        public static final String FIELD_ROOT_CAUSE = "302311208";
+        public static final String FIELD_WORK_AROUND_FIX = "302311209";
+        public static final String FIELD_TECHNICAL_NOTES = "302311202";
+        public static final String FIELD_ID = "1";
+        public static final String[] FIELD_IDS = new String[] {
+            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+
+        public static KnownError findById(HelperContext context, String id) {
+            KnownError result = null;
+            String qualification = "'"+FIELD_ID+"' = \""+id+"\"";
+            SimpleEntry entry = ArsBase.findSingle(context, FORM_NAME, qualification, FIELD_IDS);
+            if (entry != null) {
+                result = new KnownError(entry);
+            }
+            return result;
+        }
+
+        private SimpleEntry entry;
+        public KnownError(SimpleEntry entry) {
+            this.entry = entry;
+        }
+
+        public String getTitle() {return entry.getEntryFieldValue(FIELD_TITLE);}
+        public String getError() {return entry.getEntryFieldValue(FIELD_ERROR);}
+        public String getRootCause() {return entry.getEntryFieldValue(FIELD_ROOT_CAUSE);}
+        public String getWorkAroundFix() {return entry.getEntryFieldValue(FIELD_WORK_AROUND_FIX);}
+        public String getTechnicalNotes() {return entry.getEntryFieldValue(FIELD_TECHNICAL_NOTES);}
+        public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
+    }
+%>
