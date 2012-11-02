@@ -3,9 +3,10 @@
         public static final String FORM_NAME = "RKM:ReferenceTemplate_Manageable_Join";
         public static final String FIELD_TITLE = "302300502";
         public static final String FIELD_REFERENCE = "302311210";
-        public static final String FIELD_ID = "1";
+        public static final String FIELD_AUTHOR = "302300527";
+        public static final String FIELD_ID = "302300507";
         public static final String[] FIELD_IDS = new String[] {
-            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+            FIELD_TITLE, FIELD_REFERENCE, FIELD_ID};
 
         public static Reference findById(HelperContext context, String id) {
             Reference result = null;
@@ -24,6 +25,7 @@
 
         public String getTitle() {return entry.getEntryFieldValue(FIELD_TITLE);}
         public String getReference() {return entry.getEntryFieldValue(FIELD_REFERENCE);}
+        public String getAuthor() {return entry.getEntryFieldValue(FIELD_AUTHOR);}
         public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
     }
 %>

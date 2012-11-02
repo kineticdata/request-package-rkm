@@ -3,7 +3,8 @@
         public static final String FORM_NAME = "RKM:DecisionTreeTemplate_Manageable_Join";
         public static final String FIELD_TITLE = "302300502";
         public static final String FIELD_DECISION_TREE = "302311212";
-        public static final String FIELD_ID = "1";
+        public static final String FIELD_AUTHOR = "302300527";
+        public static final String FIELD_ID = "302300507";
         public static final String[] FIELD_IDS = new String[] {
             FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
 
@@ -24,6 +25,7 @@
 
         public String getTitle() {return entry.getEntryFieldValue(FIELD_TITLE);}
         public String getDecisionTree() {return entry.getEntryFieldValue(FIELD_DECISION_TREE);}
+        public String getAuthor() {return entry.getEntryFieldValue(FIELD_AUTHOR);}
         public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
     }
 %>

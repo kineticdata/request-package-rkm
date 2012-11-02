@@ -5,13 +5,15 @@
         public static final String FIELD_QUESTION = "302311200";
         public static final String FIELD_ANSWER = "302311201";
         public static final String FIELD_TECHNICAL_NOTES = "302311202";
-        public static final String FIELD_ID = "1";
+        public static final String FIELD_AUTHOR = "302300527";
+        public static final String FIELD_ID = "302300507";
         public static final String[] FIELD_IDS = new String[] {
-            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+            FIELD_TITLE, FIELD_QUESTION, FIELD_ANSWER, FIELD_TECHNICAL_NOTES, FIELD_ID};
 
         public static HowTo findById(HelperContext context, String id) {
             HowTo result = null;
             String qualification = "'"+FIELD_ID+"' = \""+id+"\"";
+            System.out.println(qualification);
             SimpleEntry entry = ArsBase.findSingle(context, FORM_NAME, qualification, FIELD_IDS);
             if (entry != null) {
                 result = new HowTo(entry);
@@ -28,6 +30,7 @@
         public String getQuestion() {return entry.getEntryFieldValue(FIELD_QUESTION);}
         public String getAnswer() {return entry.getEntryFieldValue(FIELD_ANSWER);}
         public String getTechnicalNotes() {return entry.getEntryFieldValue(FIELD_TECHNICAL_NOTES);}
+        public String getAuthor() {return entry.getEntryFieldValue(FIELD_AUTHOR);}
         public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
     }
 %>

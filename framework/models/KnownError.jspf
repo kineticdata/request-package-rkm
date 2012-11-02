@@ -6,9 +6,10 @@
         public static final String FIELD_ROOT_CAUSE = "302311208";
         public static final String FIELD_WORK_AROUND_FIX = "302311209";
         public static final String FIELD_TECHNICAL_NOTES = "302311202";
-        public static final String FIELD_ID = "1";
+        public static final String FIELD_AUTHOR = "302300527";
+        public static final String FIELD_ID = "302300507";
         public static final String[] FIELD_IDS = new String[] {
-            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+            FIELD_TITLE, FIELD_ERROR, FIELD_ROOT_CAUSE, FIELD_WORK_AROUND_FIX, FIELD_TECHNICAL_NOTES, FIELD_ID};
 
         public static KnownError findById(HelperContext context, String id) {
             KnownError result = null;
@@ -30,6 +31,7 @@
         public String getRootCause() {return entry.getEntryFieldValue(FIELD_ROOT_CAUSE);}
         public String getWorkAroundFix() {return entry.getEntryFieldValue(FIELD_WORK_AROUND_FIX);}
         public String getTechnicalNotes() {return entry.getEntryFieldValue(FIELD_TECHNICAL_NOTES);}
+        public String getAuthor() {return entry.getEntryFieldValue(FIELD_AUTHOR);}
         public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
     }
 %>

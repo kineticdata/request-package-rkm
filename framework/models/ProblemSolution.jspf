@@ -5,9 +5,10 @@
         public static final String FIELD_PROBLEM = "302311205";
         public static final String FIELD_SOLUTION = "302311206";
         public static final String FIELD_TECHNICAL_NOTES = "302311202";
-        public static final String FIELD_ID = "1";
+        public static final String FIELD_AUTHOR = "302300527";
+        public static final String FIELD_ID = "302300507";
         public static final String[] FIELD_IDS = new String[] {
-            FIELD_TITLE, FIELD_DECISION_TREE, FIELD_ID};
+            FIELD_TITLE, FIELD_PROBLEM, FIELD_SOLUTION, FIELD_TECHNICAL_NOTES, FIELD_ID};
 
         public static ProblemSolution findById(HelperContext context, String id) {
             ProblemSolution result = null;
@@ -28,6 +29,7 @@
         public String getProblem() {return entry.getEntryFieldValue(FIELD_PROBLEM);}
         public String getSolution() {return entry.getEntryFieldValue(FIELD_SOLUTION);}
         public String getTechnicalNotes() {return entry.getEntryFieldValue(FIELD_TECHNICAL_NOTES);}
+        public String getAuthor() {return entry.getEntryFieldValue(FIELD_AUTHOR);}
         public String getId() {return entry.getEntryFieldValue(FIELD_ID);}
     }
 %>
