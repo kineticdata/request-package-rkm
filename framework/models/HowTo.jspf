@@ -13,7 +13,6 @@
         public static HowTo findById(HelperContext context, String id) {
             HowTo result = null;
             String qualification = "'"+FIELD_ID+"' = \""+id+"\"";
-            System.out.println(qualification);
             SimpleEntry entry = ArsBase.findSingle(context, FORM_NAME, qualification, FIELD_IDS);
             if (entry != null) {
                 result = new HowTo(entry);
