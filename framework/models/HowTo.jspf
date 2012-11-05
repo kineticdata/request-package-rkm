@@ -28,11 +28,20 @@
             this.entry = entry;
         }
 
-        public String getTitle() {return entry.get(FIELD_TITLE).getValue().toString(); }
-        public String getQuestion() {return entry.get(FIELD_QUESTION).getValue().toString(); }
-        public String getAnswer() {return entry.get(FIELD_ANSWER).getValue().toString(); }
-        public String getTechnicalNotes() {return entry.get(FIELD_TECHNICAL_NOTES).getValue().toString(); }
-        public String getAuthor() {return entry.get(FIELD_AUTHOR).getValue().toString(); }
-        public String getId() {return entry.get(FIELD_ID).getValue().toString(); }
+        public String getTitle() {return getValue(FIELD_TITLE);}
+        public String getQuestion() {return getValue(FIELD_QUESTION);}
+        public String getAnswer() {return getValue(FIELD_ANSWER);}
+        public String getTechnicalNotes() {return getValue(FIELD_TECHNICAL_NOTES);}
+        public String getAuthor() {return getValue(FIELD_AUTHOR);}
+        public String getId() {return getValue(FIELD_ID);}
+        
+        public String getValue(int fieldId) {
+            Object value = entry.get(fieldId).getValue();
+            if (value == null) {
+                return null;
+            } else {
+                return value.toString();
+            }
+        }
     }
 %>
