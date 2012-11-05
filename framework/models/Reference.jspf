@@ -6,7 +6,7 @@
         public static final int FIELD_AUTHOR = 302300527;
         public static final int FIELD_ID = 302300507;
         public static final int[] FIELD_IDS = new int[] {
-            FIELD_TITLE, FIELD_REFERENCE, FIELD_ID};
+            FIELD_TITLE, FIELD_REFERENCE, FIELD_AUTHOR, FIELD_ID};
 
         public static Reference findById(com.bmc.arsys.api.ARServerUser serverUser, String id) throws com.bmc.arsys.api.ARException {
             String qualification = "'"+FIELD_ID+"' = \""+id+"\"";
