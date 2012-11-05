@@ -26,21 +26,8 @@
         }
 
         public String getTitle() {return entry.get(FIELD_TITLE).getValue().toString(); }
-        public String getDecisionTree() {
-            com.bmc.arsys.api.Value value = entry.get(FIELD_DECISION_TREE);
-            System.out.println(value);
-            Object object = value.getValue();
-            System.out.println(object);
-            return object.toString();
-        }
-        public String getAuthor() {
-            System.out.println(entry);
-            com.bmc.arsys.api.Value value = entry.get(FIELD_AUTHOR);
-            System.out.println(value);
-            Object object = value.getValue();
-            System.out.println(object);
-            return object.toString();
-        }
+        public String getDecisionTree() {return entry.get(FIELD_DECISION_TREE).getValue().toString(); }
+        public String getAuthor() {return entry.get(FIELD_AUTHOR).getValue().toString(); }
         public String getId() {return entry.get(FIELD_ID).getValue().toString(); }
     }
 %>
