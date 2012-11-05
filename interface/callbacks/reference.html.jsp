@@ -6,7 +6,7 @@
     } else {
         try {
             String articleId = request.getParameter("articleId");
-            Reference reference = Reference.findById(otherContext, articleId);
+            Reference reference = Reference.findById(serverUser, articleId);
 %>
 <div>
     <div><%= reference.getTitle()%></div>

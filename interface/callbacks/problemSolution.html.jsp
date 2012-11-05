@@ -6,7 +6,7 @@
     } else {
         try {
             String articleId = request.getParameter("articleId");
-            ProblemSolution problemSolution = ProblemSolution.findById(otherContext, articleId);
+            ProblemSolution problemSolution = ProblemSolution.findById(serverUser, articleId);
 %>
 <div>
     <div><%= problemSolution.getTitle()%></div>

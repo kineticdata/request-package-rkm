@@ -6,7 +6,7 @@
     } else {
         try {
             String articleId = request.getParameter("articleId");
-            HowTo howTo = HowTo.findById(otherContext, articleId);
+            HowTo howTo = HowTo.findById(serverUser, articleId);
 %>
 <div>
     <div><%= howTo.getTitle()%></div>

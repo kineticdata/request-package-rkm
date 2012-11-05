@@ -6,7 +6,7 @@
     } else {
         try {
             String articleId = request.getParameter("articleId");
-            DecisionTree decisionTree = DecisionTree.findById(otherContext, articleId);
+            DecisionTree decisionTree = DecisionTree.findById(serverUser, articleId);
 %>
 <div>
     <div><%= decisionTree.getTitle()%></div>

@@ -6,7 +6,7 @@
     } else {
         try {
             String articleId = request.getParameter("articleId");
-            KnownError knownError = KnownError.findById(otherContext, articleId);
+            KnownError knownError = KnownError.findById(serverUser, articleId);
 %>
 <div>
     <div><%= knownError.getTitle()%></div>

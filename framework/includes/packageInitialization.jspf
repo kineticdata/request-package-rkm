@@ -64,3 +64,13 @@
     Include the package configuration file.
 --%>
 <%@include file="../../config/config.jspf" %>
+
+<%--
+    Load the ARServerUser instance which is used to make calls using the 7.6
+    Remedy API.
+--%>
+<%
+    com.bmc.arsys.api.ARServerUser serverUser = new ARServerUser("Demo", "", "", "itsm7internal");
+    serverUser.setPort(3000);
+    serverUser.login();
+%>
