@@ -5,26 +5,15 @@
         ResponseHelper.sendUnauthorizedResponse(response);
     } else {
         try {
-            String mustHaveTerms = request.getParameter("mustHave");
-            String mayHaveTerms = request.getParameter("mayHave");
-            String mustNotHaveTerms = request.getParameter("mustNotHave");
+            String mustHave = request.getParameter("mustHave");
+            String mayHave = request.getParameter("mayHave");
+            String mustNotHave = request.getParameter("mustNotHave");
 
-            // Instantiate the mfs object
-            MultiFormSearch mfs = new MultiFormSearch();
-
-            if (mustHaveTerms != null) {
-                mfs.setMustHave(mustHaveTerms);
-            }
-            if (mayHaveTerms != null) {
-                mfs.setMayHave(mayHaveTerms);
-            }
-            if (mustNotHaveTerms != null) {
-                mfs.setMustNotHave(mustNotHaveTerms);
-            }
+            MultiFormSearch mfs = new MultiFormSearch(mustHave, mayHave, mustNotHave);
 
             String jsonData;
             try {
-                jsonData = mfs.search();
+                jsonData = mfs.search(serverUser);
             } catch (Exception e) {
                 jsonData = e.toString();
             }
