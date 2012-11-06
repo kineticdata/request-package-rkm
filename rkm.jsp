@@ -24,17 +24,20 @@
         <div id="bodyContainer">
             <%@include file="../../common/interface/fragments/contentHeader.jspf"%>
             <div id="contentBody">
-                    <form id="searchTerms">
-                        <span>Search Terms</span> <input type="search" name="mustHave" id="mustHave" value="" />
-                        <input type="submit" id="searchButton" value="Search" />
-                    </form>
-                    <table id="results">
+                        <div class="title">Remedy Knowledge Management</div>
+                        <div class="search">
+                            <form id="searchTerms">
+                                <input type="search" name="mustHave" id="mustHave" value="" />
+                                <input type="submit" id="searchButton" value="Search" />
+                            </form>
+                        </div>
+                        <div class="clear"></div>
+                        <table id="results">
                         <thead>
                             <tr>
                                 <th>Article</th>
                                 <th>Summary</th>
                                 <th>Source</th>
-                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
