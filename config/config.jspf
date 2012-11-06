@@ -1,6 +1,6 @@
 <%-- Set the values of the themes configurable settings. --%>
 <%
-    bundle.setProperty("server", "itsm7internal.kineticdata.com");
+    bundle.setProperty("server", "");
     bundle.setProperty("locale", "");
-    bundle.setProperty("port", "3000");
+    bundle.setProperty("port", "");
 %>
