@@ -70,11 +70,14 @@
     Remedy API.
 --%>
 <%
-    com.bmc.arsys.api.ARServerUser serverUser = new com.bmc.arsys.api.ARServerUser(
-            context.getUserName(),
-            context.getPassword(),
-            bundle.getProperty("locale"),
-            bundle.getProperty("server"));
-    serverUser.setPort(Integer.parseInt(bundle.getProperty("port")));
-    serverUser.login();
+    com.bmc.arsys.api.ARServerUser serverUser = null;
+    if (context != null) {
+        serverUser = new com.bmc.arsys.api.ARServerUser(
+                context.getUserName(),
+                context.getPassword(),
+                bundle.getProperty("locale"),
+                bundle.getProperty("server"));
+        serverUser.setPort(Integer.parseInt(bundle.getProperty("port")));
+        serverUser.login();
+    }
 %>
