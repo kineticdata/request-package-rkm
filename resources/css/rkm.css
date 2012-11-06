@@ -15,44 +15,41 @@ table#results {
     margin-top: 10px;
     width: 100%;
 }
-
-table#results tr { cursor: pointer; }
-table#results tr.odd { background-color: #F3F3F3; }
-table#results tr.even { background-color: #E9E9E9; }
-
-table#results tr.highlight { background-color: #E0E0E0; }
+table#results tr {
+    cursor: pointer;
+}
+table#results tr.odd { background-color: #F0F0F0; }
+table#results tr.even { background-color: #E6E6E6; }
+table#results tr th {
+    color: #777777;
+}
 table#results tr td, table#results tr th {
     line-height: 20px;
     padding: 8px;
 }
-table#results tr th {
-    color: #3B6E9C;
-}
-
 table#results tr.articleRow {
     cursor: default;
 }
 table#results tr.articleRow td {
     padding: 0;
 }
-table#results tr.articleRow td .articleContainer {
-    display: none;
-    padding: 8px 150px;
-}
 
-
+.articleContainer.odd .article { background-color: #F0F0F0; }
+.articleContainer.even .article { background-color: #E6E6E6; }
 .article {
-    background-color: #F6F6F6;
-    width: 640px;
-}
-.article .field {
-    padding: 5px;
+    margin: 5px 150px 15px 150px;;
 }
 .article .field .label {
+    color: #777777;
     float: left;
     font-weight: bold;
-    width: 150px;
+    padding: 10px 10px 6px 0;
+    text-align: right;
+    width: 100px;
 }
 .article .field .value {
-    margin-left: 150px;
+    border-bottom: 1px solid #777777;
+    border-left: 1px solid #777777;
+    margin-left: 110px;
+    padding: 10px 5px 5px 5px;
 }

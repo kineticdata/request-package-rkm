@@ -36,8 +36,8 @@
                         <thead>
                             <tr>
                                 <th>Article</th>
-                                <th>Summary</th>
                                 <th>Source</th>
+                                <th>Summary</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
