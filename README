@@ -1,6 +1,8 @@
-==RKM Package
+RKM Package
+===========
 
-=Description
+Description
+-----------
 This purpose of this package is to provide a portal that allows users to search
 the Remedy Knowledge Management database for different types of articles.  It
 contains one root jsp (rkm.jsp) which has a search feature and displays the
@@ -8,7 +10,8 @@ results in a table.  For each of the results the user can view the article by
 clicking on a row, another ajax call is made to retrieve the specifics of that
 article.
 
-=Installation
+Installation
+------------
 Installation of this package is similar to any other package with an additional
 step.  The query performed in this package requires the AR 7.6 API jar files,
 these can be found in the vendor directory of this package.  These jar files
