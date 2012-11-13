@@ -38,6 +38,7 @@
                                 <th>Article</th>
                                 <th>Source</th>
                                 <th>Summary</th>
+                                <th>Last Modified</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

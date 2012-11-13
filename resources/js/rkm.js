@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
                     row.append("<td>" + results[i]["Article Title"] + "</td>");
                     row.append("<td>" + results[i]["Source"] + "</td>");
                     row.append("<td>" + results[i]["Summary"] + "</td>");
+                    row.append("<td>" + results[i]["Modified Date"] + "</td>");
                     jQuery("table#results tbody").append(row);
                     row.click(rowClickHandler);
                     jQuery("table#results").show();
