@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
                     resultDiv.data("article-id", results[i]["Article ID"]);
                     resultDiv.data("article-type", sourceMap[results[i]["Source"]]);
                     resultDiv.append('<div class="icon '+ sourceMap[results[i]["Source"]] +
-                        '"></div>');
+                        '" title="' + results[i]["Source"] + '"></div>');
                     resultDiv.append('<div class="middleCol">' +
                         '<div class="title">' + 
                         '<div class="sprite expand"></div>' +
