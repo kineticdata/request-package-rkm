@@ -44,6 +44,7 @@
       <%@include file="../models/kineticSample/Incident.jspf
       <%@include file="../models/kineticSample/Person.jspf
 --%>
+<%@include file="../models/KnowledgeArticle.jspf" %>
 <%@include file="../models/DecisionTree.jspf" %>
 <%@include file="../models/HowTo.jspf" %>
 <%@include file="../models/KnownError.jspf" %>
