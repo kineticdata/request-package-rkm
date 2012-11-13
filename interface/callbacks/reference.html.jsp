@@ -8,10 +8,12 @@
         Reference reference = Reference.findById(serverUser, articleId);
 %>
 <div class="article reference">
+    <% if (reference.getReference() != null) { %>
     <div class="field">
         <div class="label">Reference</div>
         <div class="value"><%= reference.getReference() %></div>
     </div>
+    <% } %>
 </div>
 <%
    }

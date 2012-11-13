@@ -8,10 +8,12 @@
         DecisionTree decisionTree = DecisionTree.findById(serverUser, articleId);
 %>
 <div class="article decisionTree">
+    <% if (decisionTree.getDecisionTree() != null) { %>
     <div class="field">
         <div class="label">Decision Tree</div>
         <div class="value"><%= decisionTree.getDecisionTree() %></div>
     </div>
+    <% } %>
 </div>
 <%
    }

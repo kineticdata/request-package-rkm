@@ -8,18 +8,24 @@
         ProblemSolution problemSolution = ProblemSolution.findById(serverUser, articleId);
 %>
 <div class="article problemSolution">
+    <% if (problemSolution.getProblem() != null) { %>
     <div class="field">
         <div class="label">Problem</div>
         <div class="value"><%= problemSolution.getProblem() %></div>
     </div>
+    <% } %>
+    <% if (problemSolution.getSolution() != null) { %>
     <div class="field">
         <div class="label">Solution</div>
         <div class="value"><%= problemSolution.getSolution() %></div>
     </div>
+    <% } %>
+    <% if (problemSolution.getTechnicalNotes() != null) { %>
     <div class="field">
         <div class="label">Technical Notes</div>
         <div class="value"><%= problemSolution.getTechnicalNotes() %></div>
     </div>
+    <% } %>
 </div>
 <%
    }
