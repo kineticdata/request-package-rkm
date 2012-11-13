@@ -7,7 +7,7 @@
         String articleId = request.getParameter("articleId");
         DecisionTree decisionTree = DecisionTree.findById(serverUser, articleId);
 %>
-<div class="article decisionTree">
+<div class="article">
     <% if (decisionTree.getDecisionTree() != null) { %>
     <div class="field">
         <div class="label">Decision Tree</div>

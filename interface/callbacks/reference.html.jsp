@@ -7,7 +7,7 @@
         String articleId = request.getParameter("articleId");
         Reference reference = Reference.findById(serverUser, articleId);
 %>
-<div class="article reference">
+<div class="article">
     <% if (reference.getReference() != null) { %>
     <div class="field">
         <div class="label">Reference</div>

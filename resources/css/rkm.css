@@ -33,19 +33,37 @@
     margin-left: 15px;
     width: 500px;
 }
+#results .result .middleCol .sprite {
+    background: url('../images/glyphicons-halflings.png');
+    float: left;
+    height: 14px;
+    margin: 1px 5px 1px 0;
+    width: 14px;
+}
+#results .result .middleCol .sprite.expand {
+    background-position: -456px -72px;
+}
+#results .result .middleCol .sprite.contract {
+    background-position: -313px -119px;
+    display: none;
+}
 #results .result .middleCol .title {
+    cursor: pointer;
+    float: left;
+}
+#results .result .middleCol .titleText {
+    float: left;
+    font-size: 14px;
     font-weight: bold;
-    line-height: 32px;
+}
+#results .result .middleCol .summary {
+    margin-top: 5px;
 }
 #results .result .rightCol {
     float: left;
     margin-left: 15px;
 }
 #results .result .rightCol .modified {
-    line-height: 32px;
-}
-#results .result .rightCol .links {
-    line-height: 32px;
 }
 
 .article {

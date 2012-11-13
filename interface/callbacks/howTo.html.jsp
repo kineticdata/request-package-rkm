@@ -7,7 +7,7 @@
         String articleId = request.getParameter("articleId");
         HowTo howTo = HowTo.findById(serverUser, articleId);
 %>
-<div class="article howTo">
+<div class="article">
     <% if (howTo.getQuestion() != null) { %>
     <div class="field">
         <div class="label">Question</div>

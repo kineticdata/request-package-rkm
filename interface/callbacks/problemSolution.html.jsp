@@ -7,7 +7,7 @@
         String articleId = request.getParameter("articleId");
         ProblemSolution problemSolution = ProblemSolution.findById(serverUser, articleId);
 %>
-<div class="article problemSolution">
+<div class="article">
     <% if (problemSolution.getProblem() != null) { %>
     <div class="field">
         <div class="label">Problem</div>

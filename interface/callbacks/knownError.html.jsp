@@ -7,7 +7,7 @@
         String articleId = request.getParameter("articleId");
         KnownError knownError = KnownError.findById(serverUser, articleId);
 %>
-<div class="article knownError">
+<div class="article">
     <% if (knownError.getError() != null) { %>
     <div class="field">
         <div class="label">Error</div>

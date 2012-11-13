@@ -29,16 +29,19 @@ jQuery(document).ready(function() {
                     resultDiv.data("article-type", sourceMap[results[i]["Source"]]);
                     resultDiv.append('<div class="icon '+ sourceMap[results[i]["Source"]] +
                         '"></div>');
-                    resultDiv.append('<div class="middleCol"><div class="title">' +
-                        results[i]["Article Title"] + '</div><div class="summary">' +
-                        results[i]["Summary"] + '</div></div>');
+                    resultDiv.append('<div class="middleCol">' +
+                        '<div class="title">' + 
+                        '<div class="sprite expand"></div>' +
+                        '<div class="sprite contract"></div>' +
+                        '<div class="titleText">' + results[i]["Article Title"] + '</div>' +
+                        '<div class="clear"></div>' +
+                        '</div>' +
+                        '<div class="clear"></div>' +
+                        '<div class="summary">' + results[i]["Summary"] + '</div></div>');
                     resultDiv.append('<div class="rightCol"><div class="modified">' +
-                        results[i]["Modified Date"] + '</div><div class="links">' +
-                        '<a class="hide hidden" href="javascript:void(0);">Hide</a>' +
-                        '<a class="show" href="javascript:void(0);">Show</a></div></div>');
+                        results[i]["Modified Date"] + '</div>');
                     resultDiv.append('<div class="clear"></div>');
-                    jQuery(resultDiv).find(".links .show").click(showArticle);
-                    jQuery(resultDiv).find(".links .hide").click(hideArticle);
+                    jQuery(resultDiv).find(".middleCol .title").click(toggleArticle);
                     jQuery("#results").append(resultDiv);
                 }
             }
@@ -47,7 +50,7 @@ jQuery(document).ready(function() {
     });
 });
 
-function showArticle() {
+function toggleArticle() {
     // Retrieve the result dom element that this link refers to.
     var resultDiv = jQuery(this).parents("#results .result");
     
@@ -65,20 +68,12 @@ function showArticle() {
             data: { articleId: articleId },
             success: function(data) {
                 resultDiv.find(".middleCol").append(data);
-                resultDiv.find(".article").slideDown();
+                resultDiv.find(".article").slideToggle();
+                resultDiv.find(".title .sprite").toggle();
             }
         });
     } else {
-        resultDiv.find(".article").slideDown();
+        resultDiv.find(".article").slideToggle();
+        resultDiv.find(".title .sprite").toggle();
     }
-    jQuery(this).hide();
-    resultDiv.find(".links .hide").show();
-}
-
-function hideArticle() {
-    // Retrieve the result dom element that this link refers to.
-    var resultDiv = jQuery(this).parents("#results .result");
-    resultDiv.find(".article").slideUp();
-    jQuery(this).hide();
-    resultDiv.find(".links .show").show();
 }
