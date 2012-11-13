@@ -74,3 +74,9 @@
     font-weight: bold;
     padding-top: 10px;
 }
+.article .links {
+    margin-top: 10px;
+}
+.article .links a {
+    margin-right: 10px;
+}

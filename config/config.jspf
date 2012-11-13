@@ -3,4 +3,5 @@
     bundle.setProperty("server", "");
     bundle.setProperty("locale", "");
     bundle.setProperty("port", "");
+    bundle.setProperty("commentUrl", pathHelper.templateNameUrl("RKMComment"));
 %>
