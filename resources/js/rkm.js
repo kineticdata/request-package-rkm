@@ -1,4 +1,14 @@
 jQuery(document).ready(function() {
+    // This object maps the source type returned by the multi query jsp to a
+    // camel-case version used in css classes and jsp names.
+    var sourceMap = {
+        "Decision Tree": "decisionTree",
+        "How To": "howTo",
+        "Known Error": "knownError",
+        "Problem Solution": "problemSolution",
+        "Reference": "reference"
+    };
+    
     // Here we set the focus to the input box that gathers the search terms
     jQuery("form#searchTerms input#mustHave").focus();
     
@@ -7,24 +17,29 @@ jQuery(document).ready(function() {
     // result to generate an html table.  Each row in the table has a clicked
     // handler bound to it that retrieves the article (defined below).
     jQuery("form#searchTerms").submit(function() {
-        jQuery("table#results tbody").empty();
+        jQuery("#results").empty();
         BUNDLE.ajax({
             url: BUNDLE.packagePath + "interface/callbacks/RKMQuery.json.jsp",
             data: jQuery(this).serialize(),
             success: function(data) {
                 var results = jQuery.parseJSON(data);
                 for (var i in results) {
-                    var row = jQuery("<tr>");
-                    row.addClass((i % 2 === 1) ? "odd" : "even");
-                    row.data("article-id", results[i]["Article ID"]);
-                    row.data("article-type", results[i]["Source"]);
-                    row.append("<td>" + results[i]["Article Title"] + "</td>");
-                    row.append("<td>" + results[i]["Source"] + "</td>");
-                    row.append("<td>" + results[i]["Summary"] + "</td>");
-                    row.append("<td>" + results[i]["Modified Date"] + "</td>");
-                    jQuery("table#results tbody").append(row);
-                    row.click(rowClickHandler);
-                    jQuery("table#results").show();
+                    var resultDiv = jQuery('<div class="result"></div>');
+                    resultDiv.data("article-id", results[i]["Article ID"]);
+                    resultDiv.data("article-type", sourceMap[results[i]["Source"]]);
+                    resultDiv.append('<div class="icon '+ sourceMap[results[i]["Source"]] +
+                        '"></div>');
+                    resultDiv.append('<div class="middleCol"><div class="title">' +
+                        results[i]["Article Title"] + '</div><div class="summary">' +
+                        results[i]["Summary"] + '</div></div>');
+                    resultDiv.append('<div class="rightCol"><div class="modified">' +
+                        results[i]["Modified Date"] + '</div><div class="links">' +
+                        '<a class="hide hidden" href="javascript:void(0);">Hide</a>' +
+                        '<a class="show" href="javascript:void(0);">Show</a></div></div>');
+                    resultDiv.append('<div class="clear"></div>');
+                    jQuery(resultDiv).find(".links .show").click(showArticle);
+                    jQuery(resultDiv).find(".links .hide").click(hideArticle);
+                    jQuery("#results").append(resultDiv);
                 }
             }
         });
@@ -32,46 +47,38 @@ jQuery(document).ready(function() {
     });
 });
 
-// The loaded array stores the table row dom elements that have been clicked and
-// whose articles have already been successfully loaded.  This is used to ensure
-// that the article jsp is only retrieved once.
-var loaded = [];
-function rowClickHandler() {
-    // This object maps the source type to the proper jsp to be called.
-    var jspMap = {
-        "Decision Tree": "decisionTree.html.jsp",
-        "How To": "howTo.html.jsp",
-        "Known Error": "knownError.html.jsp",
-        "Problem Solution": "problemSolution.html.jsp",
-        "Reference": "reference.html.jsp"
-    };
-
+function showArticle() {
+    // Retrieve the result dom element that this link refers to.
+    var resultDiv = jQuery(this).parents("#results .result");
+    
     // Retrieve parameters used in the call from data attributes of the clicked
     // dom element.
-    var articleType = jQuery(this).data("article-type");
-    var articleId = jQuery(this).data("article-id");
+    var articleType = resultDiv.data("article-type");
+    var articleId = resultDiv.data("article-id");
 
-    // If the loaded array contains the clicked dom element already, its article
-    // has already been loaded.  If the article has not been loaded we make an
-    // ajax call to the proper jsp and add a now row to the table just below the
-    // one clicked and the clicked row is added to the loaded object.  Otherwise
-    // we simple call the slide toggle function to hide and show the article.
-    if (jQuery.inArray(this, loaded) === -1) {
-        var clickedRow = this;
+    // If the article has not been retrieve do an ajax call to retrieve the
+    // article partial and append it to the result div, then show it.  Otherwise
+    // we simple show the article that is already there.
+    if ( resultDiv.find(".article").length === 0 ) {
         BUNDLE.ajax({
-            url: BUNDLE.packagePath + "interface/callbacks/" + jspMap[articleType],
+            url: BUNDLE.packagePath + "interface/callbacks/" + articleType + '.html.jsp',
             data: { articleId: articleId },
             success: function(data) {
-                var articleRow = jQuery('<tr class="articleRow"></tr>');
-                var articleCell = jQuery('<td colspan="4"></td>');
-                var zebra = (jQuery(clickedRow).hasClass("odd")) ? "odd" : "even";
-                var articleContainer = jQuery('<div class="hidden articleContainer ' + zebra +'">' + data + '</div>');
-                jQuery(clickedRow).after(articleRow.append(articleCell.append(articleContainer)));
-                articleContainer.slideDown();
-                loaded.push(clickedRow);
+                resultDiv.find(".middleCol").append(data);
+                resultDiv.find(".article").slideDown();
             }
         });
     } else {
-        jQuery(this).next("tr.articleRow").find("td .articleContainer").slideToggle();
+        resultDiv.find(".article").slideDown();
     }
+    jQuery(this).hide();
+    resultDiv.find(".links .hide").show();
+}
+
+function hideArticle() {
+    // Retrieve the result dom element that this link refers to.
+    var resultDiv = jQuery(this).parents("#results .result");
+    resultDiv.find(".article").slideUp();
+    jQuery(this).hide();
+    resultDiv.find(".links .show").show();
 }

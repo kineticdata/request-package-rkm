@@ -1,43 +1,55 @@
-.title {
+.header .title {
     color: #3B6E9C;
     float: left;
     font-size: 14px;
     font-weight: bold;
     line-height: 21px;
 }
-.search {
+.header .search {
     float: left;
     margin-left: 50px;
 }
 
-table#results {
-    display:none;
-    margin-top: 10px;
-    width: 100%;
+#results {
+    margin-top: 20px;
 }
-table#results tr {
-    cursor: pointer;
+#results .result {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
-table#results tr.odd { background-color: #F0F0F0; }
-table#results tr.even { background-color: #E6E6E6; }
-table#results tr th {
-    color: #777777;
+#results .result .icon {
+    float: left;
+    height: 64px;
+    width: 64px;
 }
-table#results tr td, table#results tr th {
-    line-height: 20px;
-    padding: 8px;
+#results .result .icon.decisionTree { background: url('../images/filter.png'); }
+#results .result .icon.howTo { background: url('../images/info_blue.png'); }
+#results .result .icon.knownError { background: url('../images/warning_blue.png'); }
+#results .result .icon.problemSolution { background: url('../images/help_blue.png'); }
+#results .result .icon.reference { background: url('../images/design.png'); }
+#results .result .middleCol {
+    float: left;
+    margin-left: 15px;
+    width: 500px;
 }
-table#results tr.articleRow {
-    cursor: default;
+#results .result .middleCol .title {
+    font-weight: bold;
+    line-height: 32px;
 }
-table#results tr.articleRow td {
-    padding: 0;
+#results .result .rightCol {
+    float: left;
+    margin-left: 15px;
+}
+#results .result .rightCol .modified {
+    line-height: 32px;
+}
+#results .result .rightCol .links {
+    line-height: 32px;
 }
 
-.articleContainer.odd .article { background-color: #F0F0F0; }
-.articleContainer.even .article { background-color: #E6E6E6; }
 .article {
-    margin: 5px 150px 15px 150px;;
+    display: none;
 }
 .article .field .label {
     color: #777777;
