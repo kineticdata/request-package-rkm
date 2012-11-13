@@ -9,14 +9,6 @@
 %>
 <div class="article decisionTree">
     <div class="field">
-        <div class="label">Title</div>
-        <div class="value"><%= decisionTree.getTitle() %></div>
-    </div>
-    <div class="field">
-        <div class="label">Author</div>
-        <div class="value"><%= decisionTree.getAuthor() %></div>
-    </div>
-    <div class="field">
         <div class="label">Decision Tree</div>
         <div class="value"><%= decisionTree.getDecisionTree() %></div>
     </div>

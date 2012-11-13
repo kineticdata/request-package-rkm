@@ -9,14 +9,6 @@
 %>
 <div class="article reference">
     <div class="field">
-        <div class="label">Title</div>
-        <div class="value"><%= reference.getTitle() %></div>
-    </div>
-    <div class="field">
-        <div class="label">Author</div>
-        <div class="value"><%= reference.getAuthor() %></div>
-    </div>
-    <div class="field">
         <div class="label">Reference</div>
         <div class="value"><%= reference.getReference() %></div>
     </div>

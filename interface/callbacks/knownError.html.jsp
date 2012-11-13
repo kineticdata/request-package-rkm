@@ -9,14 +9,6 @@
 %>
 <div class="article knownError">
     <div class="field">
-        <div class="label">Title</div>
-        <div class="value"><%= knownError.getTitle() %></div>
-    </div>
-    <div class="field">
-        <div class="label">Author</div>
-        <div class="value"><%= knownError.getAuthor() %></div>
-    </div>
-    <div class="field">
         <div class="label">Error</div>
         <div class="value"><%= knownError.getError() %></div>
     </div>

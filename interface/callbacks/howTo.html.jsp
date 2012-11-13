@@ -9,14 +9,6 @@
 %>
 <div class="article howTo">
     <div class="field">
-        <div class="label">Title</div>
-        <div class="value"><%= howTo.getTitle() %></div>
-    </div>
-    <div class="field">
-        <div class="label">Author</div>
-        <div class="value"><%= howTo.getAuthor() %></div>
-    </div>
-    <div class="field">
         <div class="label">Question</div>
         <div class="value"><%= howTo.getQuestion() %></div>
     </div>

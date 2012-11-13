@@ -9,14 +9,6 @@
 %>
 <div class="article problemSolution">
     <div class="field">
-        <div class="label">Title</div>
-        <div class="value"><%= problemSolution.getTitle() %></div>
-    </div>
-    <div class="field">
-        <div class="label">Author</div>
-        <div class="value"><%= problemSolution.getAuthor() %></div>
-    </div>
-    <div class="field">
         <div class="label">Problem</div>
         <div class="value"><%= problemSolution.getProblem() %></div>
     </div>
