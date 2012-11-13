@@ -4,9 +4,8 @@
     if (context == null) {
         ResponseHelper.sendUnauthorizedResponse(response);
     } else {
-        try {
-            String articleId = request.getParameter("articleId");
-            DecisionTree decisionTree = DecisionTree.findById(serverUser, articleId);
+        String articleId = request.getParameter("articleId");
+        DecisionTree decisionTree = DecisionTree.findById(serverUser, articleId);
 %>
 <div class="article decisionTree">
     <div class="field">
@@ -23,8 +22,5 @@
     </div>
 </div>
 <%
-        } catch (Throwable t) {
-            System.out.println(t.toString());
-        }
    }
 %>

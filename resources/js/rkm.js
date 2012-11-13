@@ -63,7 +63,7 @@ function rowClickHandler() {
             data: { articleId: articleId },
             success: function(data) {
                 var articleRow = jQuery('<tr class="articleRow"></tr>');
-                var articleCell = jQuery('<td colspan="3"></td>');
+                var articleCell = jQuery('<td colspan="4"></td>');
                 var zebra = (jQuery(clickedRow).hasClass("odd")) ? "odd" : "even";
                 var articleContainer = jQuery('<div class="hidden articleContainer ' + zebra +'">' + data + '</div>');
                 jQuery(clickedRow).after(articleRow.append(articleCell.append(articleContainer)));

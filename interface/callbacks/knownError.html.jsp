@@ -4,9 +4,8 @@
     if (context == null) {
         ResponseHelper.sendUnauthorizedResponse(response);
     } else {
-        try {
-            String articleId = request.getParameter("articleId");
-            KnownError knownError = KnownError.findById(serverUser, articleId);
+        String articleId = request.getParameter("articleId");
+        KnownError knownError = KnownError.findById(serverUser, articleId);
 %>
 <div class="article knownError">
     <div class="field">
@@ -35,8 +34,5 @@
     </div>
 </div>
 <%
-        } catch (Throwable t) {
-            System.out.println(t.toString());
-        }
    }
 %>

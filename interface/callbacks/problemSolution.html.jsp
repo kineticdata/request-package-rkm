@@ -4,9 +4,8 @@
     if (context == null) {
         ResponseHelper.sendUnauthorizedResponse(response);
     } else {
-        try {
-            String articleId = request.getParameter("articleId");
-            ProblemSolution problemSolution = ProblemSolution.findById(serverUser, articleId);
+        String articleId = request.getParameter("articleId");
+        ProblemSolution problemSolution = ProblemSolution.findById(serverUser, articleId);
 %>
 <div class="article problemSolution">
     <div class="field">
@@ -31,8 +30,5 @@
     </div>
 </div>
 <%
-        } catch (Throwable t) {
-            System.out.println(t.toString());
-        }
    }
 %>
