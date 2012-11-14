@@ -74,9 +74,12 @@
     font-weight: bold;
     padding-top: 10px;
 }
-.article .links {
+.article .buttons {
     margin-top: 10px;
 }
-.article .links a {
-    margin-right: 10px;
+.article .buttons .button {
+    cursor: pointer;
+    height: 32px;
+    margin-right: 15px;
+    width: 32px;
 }

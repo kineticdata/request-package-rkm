@@ -70,24 +70,28 @@ function toggleArticle() {
             data: { articleId: articleId },
             success: function(data) {
                 resultDiv.find(".middleCol").append(data);
-                var articleLinks = jQuery('<div class="links"></div>');
+                var articleButtons = jQuery('<div class="buttons"></div>');
                 var commentUrl = BUNDLE.config["commentUrl"] + "&id=" + articleId;
-                var commentAnchor = jQuery('<a href="' + commentUrl + '">Comment</a>');
-                articleLinks.append(commentAnchor);
-                var helpfulAnchor = jQuery('<a href="javascript:void(0);">This Was Helpful</a>');
-                helpfulAnchor.click(function() {
-                   BUNDLE.ajax({
+                var commentAnchor = jQuery('<a href="' + commentUrl + '"></a>');
+                var commentButton = jQuery('<img alt="Comment" class="button comment" src="' +
+                    BUNDLE.packagePath + 'resources/images/comments.png"/ title="Comment">');
+                commentAnchor.append(commentButton)
+                articleButtons.append(commentAnchor);
+                var useButton = jQuery('<img alt="Use" class="button use" src="' +
+                    BUNDLE.packagePath +'resources/images/blog_accept.png"/ title="Use">');
+                useButton.click(function() {
+                    BUNDLE.ajax({
                        url: BUNDLE.packagePath + 'interface/callbacks/incrementRelevance.jsp',
                        data: {
                            articleId: jQuery(this).parents("#results .result").data("article-id")
                        },
                        success: function(data) {
-                           jQuery(helpfulAnchor).hide();
+                           jQuery(useButton).fadeOut();
                        }
                    }) 
                 });
-                articleLinks.append(helpfulAnchor);
-                resultDiv.find(".article").append(articleLinks);
+                articleButtons.append(useButton);
+                resultDiv.find(".article").append(articleButtons);
                 resultDiv.find(".article").slideToggle();
                 resultDiv.find(".title .sprite").toggle();
             }
