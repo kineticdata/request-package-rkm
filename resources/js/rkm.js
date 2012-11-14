@@ -38,11 +38,13 @@ jQuery(document).ready(function() {
                         '</div>' +
                         '<div class="clear"></div>' +
                         '<div class="summary">' + results[i]["Summary"] + '</div></div>');
-                    resultDiv.append('<div class="rightCol"><div class="modified">' +
-                        results[i]["Modified Date"] + '</div>');
+                    resultDiv.append('<div class="rightCol"><div class="modified"' +
+                        'title="' + results[i]["Modified Date"] + '">' +
+                        results[i]["Modified Ago"] + ' ago</div></div>');
                     resultDiv.append('<div class="clear"></div>');
                     jQuery(resultDiv).find(".middleCol .title").click(toggleArticle);
                     jQuery("#results").append(resultDiv);
+                    
                 }
             }
         });

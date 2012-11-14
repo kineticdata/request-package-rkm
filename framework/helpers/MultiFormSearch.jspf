@@ -78,13 +78,14 @@
                     String articleTitle = deepEntryList.get(0).get(302300502).getValue().toString();
                     String articleId = deepEntryList.get(0).get(302300507).getValue().toString();
                     String source = deepEntryList.get(0).get(302301007).getValue().toString();
-                    String modifiedDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(6).getValue()).toDate().toString();
+                    java.util.Date modifiedDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(6).getValue()).toDate();
                     String summary = deepEntryList.get(0).get(deepFieldIds[4]).getValue().toString().replaceAll("\\<[^>]*>", "");
 
                     myHashMap.put("Article Title", articleTitle);
                     myHashMap.put("Article ID", articleId);
                     myHashMap.put("Source", source);
-                    myHashMap.put("Modified Date", modifiedDate);
+                    myHashMap.put("Modified Date", modifiedDate.toString());
+                    myHashMap.put("Modified Ago", PackageHelper.timeAgo(modifiedDate));
 
                     if (summary.length() > 128) {
                         myHashMap.put("Summary", summary.substring(0, 128));
