@@ -89,6 +89,7 @@ function toggleArticle() {
                 articleButtons.append(commentAnchor);
                 var useButton = jQuery('<img alt="Use" class="button use" src="' +
                     BUNDLE.packagePath +'resources/images/blog_accept.png"/ title="Use">');
+                var useMessage = jQuery('<span class="hidden">Feedback submitted</span>');
                 useButton.click(function() {
                     BUNDLE.ajax({
                        url: BUNDLE.packagePath + 'interface/callbacks/incrementRelevance.jsp',
@@ -96,11 +97,14 @@ function toggleArticle() {
                            articleId: jQuery(this).parents("#results .result").data("article-id")
                        },
                        success: function(data) {
-                           jQuery(useButton).fadeOut();
+                           jQuery(useButton).fadeOut(function() {
+                               jQuery(useMessage).fadeIn();
+                           });
                        }
                    }) 
                 });
                 articleButtons.append(useButton);
+                articleButtons.append(useMessage);
                 resultDiv.find(".article").append(articleButtons);
                 resultDiv.find(".article").slideToggle();
                 resultDiv.find(".title .sprite").toggle();
