@@ -25,7 +25,6 @@
             <%@include file="../../common/interface/fragments/contentHeader.jspf"%>
             <div id="contentBody">
                 <div class="header">
-                    <div class="title">Remedy Knowledge Management</div>
                     <div class="search">
                         <form id="searchTerms">
                             <input type="search" name="mustHave" id="mustHave" value="" />

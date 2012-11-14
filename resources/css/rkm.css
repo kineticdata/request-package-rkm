@@ -1,17 +1,16 @@
-.header .title {
-    color: #3B6E9C;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 21px;
-}
 .header .search {
-    float: left;
-    margin-left: 50px;
+    text-align: center;
+}
+.header .search input {
+    font-size: 16px;
+}
+.header .search input#mustHave {
+    width: 500px;
 }
 
+
 #results {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 #results .result {
     border-bottom: 1px solid black;
