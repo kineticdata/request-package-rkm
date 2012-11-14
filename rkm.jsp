@@ -33,6 +33,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
+                <div id="messages"></div>
                 <div id="results"></div>
             </div>
             <%@include file="../../common/interface/fragments/contentFooter.jspf"%>

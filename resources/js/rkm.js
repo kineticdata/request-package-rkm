@@ -18,11 +18,20 @@ jQuery(document).ready(function() {
     // handler bound to it that retrieves the article (defined below).
     jQuery("form#searchTerms").submit(function() {
         jQuery("#results").empty();
+        jQuery("#messages").empty();
+        if ( jQuery(this).find("input#mustHave").val() === "" ) {
+            jQuery("#messages").append('<div class="message">Please enter search terms</div>');
+            jQuery("#messages .message").show();
+        } else {
         BUNDLE.ajax({
             url: BUNDLE.packagePath + "interface/callbacks/RKMQuery.json.jsp",
             data: jQuery(this).serialize(),
             success: function(data) {
                 var results = jQuery.parseJSON(data);
+                if ( results.length === 0 ) {
+                    jQuery("#messages").append('<div class="message">Your search returned 0 results</div>');
+                    jQuery("#messages .message").show();
+                }
                 for (var i in results) {
                     var resultDiv = jQuery('<div class="result"></div>');
                     resultDiv.data("article-id", results[i]["Article ID"]);
@@ -48,6 +57,7 @@ jQuery(document).ready(function() {
                 }
             }
         });
+        }
         return false;
     });
 });
