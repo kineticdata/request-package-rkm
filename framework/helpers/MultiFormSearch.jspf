@@ -46,16 +46,18 @@
 
                 // 302300502 = Article Title
                 // 302300507 = DocID
+                // 3 = Created Date
                 // 6 = Modified Date
                 // 302311201 = How-To answer field (unlimited)
                 // 302301007 = KnowledgeSourceName
                 // 302311206 = Problem solution field (unlimited)
                 // 302311207 = Known Error "Error" field
                 // 302311210 = RKM Reference "Reference" field
-                int[] deepFieldIds = new int[5];
+                int[] deepFieldIds = new int[6];
                 deepFieldIds[0] = 302300502;
                 deepFieldIds[1] = 302300507;
                 deepFieldIds[2] = 6;
+                deepFieldIds[5] = 3;
                 deepFieldIds[3] = 302301007;
 
                 // Query for the data in the ultimate target form.
@@ -79,13 +81,14 @@
                     String articleId = deepEntryList.get(0).get(302300507).getValue().toString();
                     String source = deepEntryList.get(0).get(302301007).getValue().toString();
                     java.util.Date modifiedDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(6).getValue()).toDate();
+                    java.util.Date createdDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(3).getValue()).toDate();
                     String summary = deepEntryList.get(0).get(deepFieldIds[4]).getValue().toString().replaceAll("\\<[^>]*>", "");
 
                     myHashMap.put("Article Title", articleTitle);
                     myHashMap.put("Article ID", articleId);
                     myHashMap.put("Source", source);
-                    myHashMap.put("Modified Date", modifiedDate.toString());
-                    myHashMap.put("Modified Ago", PackageHelper.timeAgo(modifiedDate));
+                    myHashMap.put("Created Date", createdDate.toString());
+                    myHashMap.put("Created Ago", PackageHelper.timeAgo(createdDate));
 
                     if (summary.length() > 128) {
                         myHashMap.put("Summary", summary.substring(0, 128));

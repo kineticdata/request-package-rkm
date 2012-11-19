@@ -47,9 +47,9 @@ jQuery(document).ready(function() {
                         '</div>' +
                         '<div class="clear"></div>' +
                         '<div class="summary">' + results[i]["Summary"] + '</div></div>');
-                    resultDiv.append('<div class="rightCol"><div class="modified"' +
-                        'title="' + results[i]["Modified Date"] + '">' +
-                        results[i]["Modified Ago"] + ' ago</div></div>');
+                    resultDiv.append('<div class="rightCol"><div class="created"' +
+                        'title="' + results[i]["Created Date"] + '">' +
+                        results[i]["Created Ago"] + ' ago</div></div>');
                     resultDiv.append('<div class="clear"></div>');
                     jQuery(resultDiv).find(".middleCol .title").click(toggleArticle);
                     jQuery("#results").append(resultDiv);
