@@ -77,12 +77,24 @@
                         deepTargetForm, entryIdList, deepFieldIds);
 
                 if (deepEntryList.size() > 0) {
-                    String articleTitle = deepEntryList.get(0).get(302300502).getValue().toString();
-                    String articleId = deepEntryList.get(0).get(302300507).getValue().toString();
-                    String source = deepEntryList.get(0).get(302301007).getValue().toString();
+                    // Retrieve the article title, id, source, and summary
+                    // values from the entries.  These are retrieved in such a
+                    // way that guards against null pointers because they may
+                    // contain null values.
+                    Object articleTitleValue = deepEntryList.get(0).get(302300502).getValue();
+                    String articleTitle = (articleTitleValue == null) ? null : articleTitleValue.toString();
+                    Object articleIdValue = deepEntryList.get(0).get(302300507).getValue();
+                    String articleId = (articleIdValue == null) ? null : articleIdValue.toString();
+                    Object sourceValue = deepEntryList.get(0).get(302301007).getValue();
+                    String source = (sourceValue == null) ? null : sourceValue.toString();
+                    Object summaryValue = deepEntryList.get(0).get(deepFieldIds[4]).getValue();
+                    String summary = (summaryValue == null) ? null : summaryValue.toString().replaceAll("\\<[^>]*>", "");
+
+                    // Retrieve the article modified and created date values
+                    // from the entry.  These are not guarded against null
+                    // pointers because they are assumed to always have a value.
                     java.util.Date modifiedDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(6).getValue()).toDate();
                     java.util.Date createdDate = ((com.bmc.arsys.api.Timestamp) deepEntryList.get(0).get(3).getValue()).toDate();
-                    String summary = deepEntryList.get(0).get(deepFieldIds[4]).getValue().toString().replaceAll("\\<[^>]*>", "");
 
                     myHashMap.put("Article Title", articleTitle);
                     myHashMap.put("Article ID", articleId);
@@ -90,7 +102,7 @@
                     myHashMap.put("Created Date", createdDate.toString());
                     myHashMap.put("Created Ago", PackageHelper.timeAgo(createdDate));
 
-                    if (summary.length() > 128) {
+                    if (summary != null && summary.length() > 128) {
                         myHashMap.put("Summary", summary.substring(0, 128));
                     } else {
                         myHashMap.put("Summary", summary);
