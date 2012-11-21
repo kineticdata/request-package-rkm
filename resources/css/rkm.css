@@ -17,6 +17,11 @@
     margin-top: 40px;
     padding: 8px;
 }
+#messages .message.error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
 
 #results {
     margin-top: 40px;

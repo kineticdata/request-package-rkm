@@ -55,6 +55,10 @@ jQuery(document).ready(function() {
                     jQuery("#results").append(resultDiv);
                     
                 }
+            },
+            error: function(data) {
+                jQuery("#messages").append('<div class="message error">An error occurred during the search</div>');
+                jQuery("#messages .message").show();
             }
         });
         }
