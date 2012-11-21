@@ -30,10 +30,8 @@ jQuery(document).ready(function() {
             success: function(data) {
                 var results = jQuery.parseJSON(data);
                 jQuery("form#searchTerms .spinner, form#searchTerms #searchButton").toggle();
-                if ( results.length === 0 ) {
-                    jQuery("#messages").append('<div class="message">Your search returned 0 results</div>');
-                    jQuery("#messages .message").show();
-                }
+                jQuery("#messages").append('<div class="message">Your search returned ' + results.length + ' results</div>');
+                jQuery("#messages .message").show();
                 for (var i in results) {
                     var resultDiv = jQuery('<div class="result"></div>');
                     resultDiv.data("article-id", results[i]["Article ID"]);
