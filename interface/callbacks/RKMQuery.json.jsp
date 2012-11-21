@@ -5,23 +5,20 @@
         ResponseHelper.sendUnauthorizedResponse(response);
     } else {
         try {
+            // Retrieve the search terms from the request parameters.
             String mustHave = request.getParameter("mustHave");
             String mayHave = request.getParameter("mayHave");
             String mustNotHave = request.getParameter("mustNotHave");
 
+            // Perform the multi form search and write the result to the out
+            // stream.
             MultiFormSearch mfs = new MultiFormSearch(mustHave, mayHave, mustNotHave, systemUser);
-
-            String jsonData;
-            try {
-                jsonData = mfs.search(serverUser);
-            } catch (Exception e) {
-                jsonData = e.toString();
-            }
-
-            out.print(jsonData);
-            out.flush();
-        } catch (Throwable t) {
-            out.print(t.toString());
+            String jsonData = mfs.search(serverUser);
+            out.println(jsonData);
+        } catch (Exception e) {
+            // Write the exception to the kslog and re-throw it
+            logger.error("Exception in RKMQuery.json.jsp", e);
+            throw e;
         }
     }
 %>

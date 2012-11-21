@@ -23,6 +23,13 @@
     HelperContext systemContext = com.kd.kineticSurvey.impl.RemedyHandler.getDefaultHelperContext();
 %>
 
+<%--
+    Retrieve the survey logger that allows us to write to the kslog.
+--%>
+<%
+    org.apache.log4j.Logger logger = com.kd.kineticSurvey.impl.SurveyLogger.getLogger();
+%>
+
 <%-- 
     Ensure the response is not cached by client or proxy.
 --%>
