@@ -9,7 +9,7 @@
             String mayHave = request.getParameter("mayHave");
             String mustNotHave = request.getParameter("mustNotHave");
 
-            MultiFormSearch mfs = new MultiFormSearch(mustHave, mayHave, mustNotHave);
+            MultiFormSearch mfs = new MultiFormSearch(mustHave, mayHave, mustNotHave, systemUser);
 
             String jsonData;
             try {

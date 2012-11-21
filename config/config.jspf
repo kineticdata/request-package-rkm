@@ -1,7 +1,9 @@
 <%-- Set the values of the themes configurable settings. --%>
 <%
-    bundle.setProperty("server", "");
-    bundle.setProperty("locale", "");
-    bundle.setProperty("port", "");
+    bundle.setProperty("rkmAdminUsername", systemContext.getUserName());
+    bundle.setProperty("rkmAdminPassword", systemContext.getPassword());
+    bundle.setProperty("rkmServer", "");
+    bundle.setProperty("rkmLocale", "");
+    bundle.setProperty("rkmPort", "");
     bundle.setProperty("commentUrl", pathHelper.templateNameUrl("RKMComment"));
 %>

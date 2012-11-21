@@ -5,12 +5,14 @@
         private String mustHave = null;
         private String mayHave = null;
         private String mustNotHave = null;
+        private com.bmc.arsys.api.ARServerUser systemUser = null;
         private String query = null;
 
-        public MultiFormSearch(String mustHave, String mayHave, String mustNotHave) throws Exception {
+        public MultiFormSearch(String mustHave, String mayHave, String mustNotHave, com.bmc.arsys.api.ARServerUser systemUser) throws Exception {
             this.mustHave = mustHave;
             this.mayHave = mayHave;
             this.mustNotHave = mustNotHave;
+            this.systemUser = systemUser;
             this.query = buildQuery();
         }
         
@@ -127,12 +129,33 @@
                     sb.append(" AND ");
                 sb.append("('3002' = \"" + mayHave + "\")");
             }
+
             if (mustNotHave != null) {
                 if (!"".equals(sb.toString()))
                     sb.append(" AND ");
                 sb.append("('3003' = \"" + mustNotHave + "\")");
             }
+
+            sb.append(" AND ");
+            sb.append("'3000' = \"" + buildSchemaIds() + "\"");
             return sb.toString();
+        }
+
+        private String buildSchemaIds() throws Exception {
+            String schemaNames = "'RKM:DecisionTreeTemplate_Manageable_Join'," +
+                "'RKM:KnownErrorTemplate_Manageable_Join'," +
+                "'RKM:HowToTemplate_Manageable_Join'," +
+                "'RKM:ProblemSolutionTemplate_Manageable_Join'," +
+                "'RKM:ReferenceTemplate_Manageable_Join'";
+            com.bmc.arsys.api.SQLResult sqlResult = systemUser.getListSQL(
+                    "SELECT name, schemaID FROM arschema WHERE name IN (" + schemaNames + ")",
+                    5, false);
+            String result = "";
+            for (java.util.List<com.bmc.arsys.api.Value> row : sqlResult.getContents()) {
+                result += row.get(1);
+                result += ";";
+            }
+            return result;
         }
     }
 %>

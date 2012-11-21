@@ -15,6 +15,14 @@
 --%>
 <%@include file="../../../../core/framework/includes/bundleInitialization.jspf"%>
 
+<%--
+    Retrieve the default helper context.  This is used because a call in this
+    package must be made by a proxy admin user.
+--%>
+<%
+    HelperContext systemContext = com.kd.kineticSurvey.impl.RemedyHandler.getDefaultHelperContext();
+%>
+
 <%-- 
     Ensure the response is not cached by client or proxy.
 --%>
@@ -67,8 +75,28 @@
 <%@include file="../../config/config.jspf" %>
 
 <%--
-    Load the ARServerUser instance which is used to make calls using the 7.6
-    Remedy API.
+    Create an ARServerUser instance that will be used as an admin proxy user to
+    make calls the current authenticated user may not be able to.  This is
+    necessary because this package requires a direct sql call which requires
+    admin access.  The authentication information for this user is defined via
+    bundle properties but the username and password default to the default
+    helper context of the kinetic request server.
+--%>
+<%
+    com.bmc.arsys.api.ARServerUser systemUser = new com.bmc.arsys.api.ARServerUser(
+                bundle.getProperty("rkmAdminUsername"),
+                bundle.getProperty("rkmAdminPassword"),
+                bundle.getProperty("rkmLocale"),
+                bundle.getProperty("rkmServer"));
+        systemUser.setPort(Integer.parseInt(bundle.getProperty("rkmPort")));
+        systemUser.login();
+%>
+<%--
+    Create an ARServerUser instance that will be used to query the multi search
+    form.  This instance is created by retrieving the username and password from
+    the current context and using the bundle properties that define the rkm
+    server.  This assumes that the user record will be the same on the kinetic
+    request and rkm servers.
 --%>
 <%
     com.bmc.arsys.api.ARServerUser serverUser = null;
@@ -76,9 +104,9 @@
         serverUser = new com.bmc.arsys.api.ARServerUser(
                 context.getUserName(),
                 context.getPassword(),
-                bundle.getProperty("locale"),
-                bundle.getProperty("server"));
-        serverUser.setPort(Integer.parseInt(bundle.getProperty("port")));
+                bundle.getProperty("rkmLocale"),
+                bundle.getProperty("rkmServer"));
+        serverUser.setPort(Integer.parseInt(bundle.getProperty("rkmPort")));
         serverUser.login();
     }
 %>
