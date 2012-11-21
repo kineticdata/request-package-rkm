@@ -1,11 +1,12 @@
-.header .search {
-    text-align: center;
-}
 .header .search input {
     font-size: 16px;
 }
 .header .search input#mustHave {
+    margin-left: 190px;
     width: 500px;
+}
+.header .search img.spinner {
+    vertical-align: top;
 }
 
 #messages .message {

@@ -29,6 +29,7 @@
                         <form id="searchTerms">
                             <input type="search" name="mustHave" id="mustHave" value="" />
                             <input type="submit" id="searchButton" value="Search" />
+                            <img class="hidden spinner" src="<%= bundle.bundlePath()%>common/resources/images/spinner_00427E_FFFFFF.gif">
                         </form>
                     </div>
                     <div class="clear"></div>

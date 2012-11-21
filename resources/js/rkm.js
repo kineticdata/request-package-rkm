@@ -23,11 +23,13 @@ jQuery(document).ready(function() {
             jQuery("#messages").append('<div class="message">Please enter search terms</div>');
             jQuery("#messages .message").show();
         } else {
+            jQuery("form#searchTerms .spinner, form#searchTerms #searchButton").toggle();
         BUNDLE.ajax({
             url: BUNDLE.packagePath + "interface/callbacks/RKMQuery.json.jsp",
             data: jQuery(this).serialize(),
             success: function(data) {
                 var results = jQuery.parseJSON(data);
+                jQuery("form#searchTerms .spinner, form#searchTerms #searchButton").toggle();
                 if ( results.length === 0 ) {
                     jQuery("#messages").append('<div class="message">Your search returned 0 results</div>');
                     jQuery("#messages .message").show();
