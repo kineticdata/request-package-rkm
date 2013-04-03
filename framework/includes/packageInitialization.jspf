@@ -104,15 +104,29 @@
     the current context and using the bundle properties that define the rkm
     server.  This assumes that the user record will be the same on the kinetic
     request and rkm servers.
+
+    Note that if the context is using impersonate user we will create the new
+    ARServerUser instance using the username and password from the systemContext
+    variable rather than context.  Then we will set impersonated user on using
+    the username from the current context.
 --%>
 <%
     com.bmc.arsys.api.ARServerUser serverUser = null;
     if (context != null) {
-        serverUser = new com.bmc.arsys.api.ARServerUser(
+        if (context.isImpersonating()) {
+            serverUser = new com.bmc.arsys.api.ARServerUser(
+                systemContext.getUserName(),
+                systemContext.getPassword(),
+                bundle.getProperty("rkmLocale"),
+                bundle.getProperty("rkmServer"));
+            serverUser.setImpersonatedUser(context.getUserName());
+        } else {
+            serverUser = new com.bmc.arsys.api.ARServerUser(
                 context.getUserName(),
                 context.getPassword(),
                 bundle.getProperty("rkmLocale"),
                 bundle.getProperty("rkmServer"));
+        }
         serverUser.setPort(Integer.parseInt(bundle.getProperty("rkmPort")));
         serverUser.login();
     }
