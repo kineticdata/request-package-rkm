@@ -112,6 +112,16 @@ function toggleArticle() {
                 resultDiv.find(".article").append(articleButtons);
                 resultDiv.find(".article").slideToggle();
                 resultDiv.find(".title .sprite").toggle();
+				jQuery(resultDiv).find("img").each(function(){
+						
+						var src = "DownloadAttachment/" 
+						+ jQuery(this).attr("arschema") 
+						+ "/" 
+						+ jQuery(this).attr("arattid") 
+						+ "/"
+						+ jQuery(this).attr("arentryid");
+						  jQuery(this).attr("src", src);
+				});
             }
         });
     } else {
