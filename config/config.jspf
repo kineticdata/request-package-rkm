@@ -1,9 +1,13 @@
 <%-- Set the values of the themes configurable settings. --%>
 <%
-    bundle.setProperty("rkmAdminUsername", systemContext.getUserName());
-    bundle.setProperty("rkmAdminPassword", systemContext.getPassword());
-    bundle.setProperty("rkmServer", "");
-    bundle.setProperty("rkmLocale", "");
-    bundle.setProperty("rkmPort", "");
+    // Create a bunlde object for server-side configuration only.
+    Bundle serverSideBundle = new Bundle(request);
+    serverSideBundle.setProperty("rkmAdminUsername", systemContext.getUserName());
+    serverSideBundle.setProperty("rkmAdminPassword", systemContext.getPassword());
+    serverSideBundle.setProperty("rkmServer", "");
+    serverSideBundle.setProperty("rkmLocale", "");
+    serverSideBundle.setProperty("rkmPort", "");
+
+    // General configuration.
     bundle.setProperty("commentUrl", pathHelper.templateNameUrl("RKMComment"));
 %>

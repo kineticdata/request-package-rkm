@@ -10,7 +10,7 @@
     that are added to the package.  Samples are included below.
 --%>
 
-<%-- 
+<%--
     Initialize the bundle and load any necessary dependencies.
 --%>
 <%@include file="../../../../core/framework/includes/bundleInitialization.jspf"%>
@@ -30,12 +30,12 @@
     org.apache.log4j.Logger logger = com.kd.kineticSurvey.impl.SurveyLogger.getLogger();
 %>
 
-<%-- 
+<%--
     Ensure the response is not cached by client or proxy.
 --%>
 <%@include file="../../../../core/framework/includes/noCache.jspf"%>
 
-<%-- 
+<%--
     Include any helper files.  By convention, package specific logic (such as
     the building of URLs) should be included in a PackageHelper helper class.
 
@@ -91,11 +91,11 @@
 --%>
 <%
     com.bmc.arsys.api.ARServerUser systemUser = new com.bmc.arsys.api.ARServerUser(
-                bundle.getProperty("rkmAdminUsername"),
-                bundle.getProperty("rkmAdminPassword"),
-                bundle.getProperty("rkmLocale"),
-                bundle.getProperty("rkmServer"));
-        systemUser.setPort(Integer.parseInt(bundle.getProperty("rkmPort")));
+                serverSideBundle.getProperty("rkmAdminUsername"),
+                serverSideBundle.getProperty("rkmAdminPassword"),
+                serverSideBundle.getProperty("rkmLocale"),
+                serverSideBundle.getProperty("rkmServer"));
+        systemUser.setPort(Integer.parseInt(serverSideBundle.getProperty("rkmPort")));
         systemUser.login();
 %>
 <%--
@@ -117,17 +117,17 @@
             serverUser = new com.bmc.arsys.api.ARServerUser(
                 systemContext.getUserName(),
                 systemContext.getPassword(),
-                bundle.getProperty("rkmLocale"),
-                bundle.getProperty("rkmServer"));
+                serverSideBundle.getProperty("rkmLocale"),
+                serverSideBundle.getProperty("rkmServer"));
             serverUser.setImpersonatedUser(context.getUserName());
         } else {
             serverUser = new com.bmc.arsys.api.ARServerUser(
                 context.getUserName(),
                 context.getPassword(),
-                bundle.getProperty("rkmLocale"),
-                bundle.getProperty("rkmServer"));
+                serverSideBundle.getProperty("rkmLocale"),
+                serverSideBundle.getProperty("rkmServer"));
         }
-        serverUser.setPort(Integer.parseInt(bundle.getProperty("rkmPort")));
+        serverUser.setPort(Integer.parseInt(serverSideBundle.getProperty("rkmPort")));
         serverUser.login();
     }
 %>
