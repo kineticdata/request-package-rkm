@@ -1,0 +1,92 @@
+#messages .message {
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #3a87ad;
+    font-size: 16px;
+    margin-top: 40px;
+    padding: 8px;
+}
+#messages .message.error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+#results {
+    margin-top: 40px;
+}
+#results .result {
+    border-bottom: 1px solid #d9edf7;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+#results .result .article-attribute {
+    font-style: italic;
+}
+#results .result .titleText {
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+}
+#results .result .titleText a {
+    cursor: pointer;
+}
+#results .result .summary {
+    margin: 10px 0;
+}
+.article-content {
+	margin-top: 10px;
+}
+.article {
+	border: 1px solid #bce8f1;
+	background-color: #d9edf7;
+	margin: 0 20px;
+}
+.article .field .label {
+    text-transform: uppercase;
+    font-size: 100%;
+    font-weight: bold;
+    color: #666;
+    margin: 0 5px;
+    padding: 0px;
+    clear: both;
+}
+
+.article .field .value {
+    background-color: #fff;
+}
+
+form.rkm-search {
+  padding: 0;
+  margin: 11px 0 0 0;
+  float: left;
+}
+
+form.rkm-search input[type="text"] {
+  width: 420px;
+  float: left;
+  min-height: 24px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 28px;
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+form.rkm-search button[type="submit"].fa-search {
+  width: 40px;
+  height: 28px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  form.rkm-search input[type="text"] {
+    width: 220px;
+  }
+}

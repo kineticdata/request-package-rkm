@@ -1,0 +1,90 @@
+
+ul.portlets li.wide {
+    margin: 0px;
+}
+
+.field {
+	margin-bottom: 10px;
+}
+.article .field .label,
+.details .label,
+.buttons .label,
+.association .label	 {
+	text-transform: uppercase;
+	color: #2a8a15;
+	font-size: 100%;
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+}
+
+.article .field .value,
+.details .value,
+.association .value {
+	background-color: #f2f2f2;
+	padding: 5px;
+}
+
+.article .field .value.keywords span{
+	background-color: #ffffff;
+	margin-right: 5px;
+	padding: 2px 5px;
+}
+
+div.article a, a:hover, a:focus {
+	color: #2B8A16;
+}
+
+.rating {
+	unicode-bidi: bidi-override;
+	direction: rtl;
+	font-size: 30px;
+}
+.rating span.star {
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+}
+.rating span.star:before {
+	content: "\f006";
+	padding-right: 5px;
+	color: #2a8a15;
+}
+.rating span.star:hover:before, .rating span.star:hover ~ span.star:before {
+	content: "\f005";
+	color: #2a8a15;
+}
+
+.rating span.star.selected:before {
+	content: "\f005";
+	color: #2a8a15;
+}
+
+div.buttons .fa-stack {
+	color: #2B8A16;
+	cursor: pointer;
+	margin: -15px 0 0 20px;
+}
+
+div.buttons .fa-stack.disabled {
+	margin: -15px 0 0 20px;
+	color: #f2f2f2;
+	cursor: default;
+}
+
+textarea#details {
+	width: 400px;
+	height: 100px;
+	margin-bottom: 20px;
+}
+
+input[type="text"]{
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+div.association {
+	margin-top: 20px;
+}

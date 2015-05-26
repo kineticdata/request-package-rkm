@@ -1,0 +1,46 @@
+{
+    "package": "rkm",
+    "languages": {
+      "en_US" : "English"
+    },
+    "views": {
+        "default": {
+            "content": "interface/views/rkm.jsp",
+            "title": "Remedy Knowledge Management"
+        }
+    },
+    "callbacks": {
+        "rkm": {
+            "content": "interface/callbacks/RKMQuery.json.jsp"
+        },
+        "problemSolution": {
+            "content": "interface/callbacks/problemSolution.html.jsp"
+        },
+        "knownError": {
+            "content": "interface/callbacks/knownError.html.jsp"
+        },
+        "howTo": {
+            "content": "interface/callbacks/howTo.html.jsp"
+        },
+        "decisionTree": {
+            "content": "interface/callbacks/decisionTree.html.jsp"
+        },
+        "reference": {
+            "content": "interface/callbacks/reference.html.jsp"
+        },
+        "incrementRelevance": {
+            "content": "interface/callbacks/incrementRelevance.jsp"
+        }
+    },
+    "links": {
+        "rkm": {
+            "type": "main-menu",
+            "label": "Remedy Knowledge Management",
+            "class": "rkm",
+            "description": "Remedy Knowledge Management",
+            "icon": "<i class=\"fa fa-book\"></i>",
+            "displayName": "RKM",
+            "sortOrder": 5
+        }
+    }
+}

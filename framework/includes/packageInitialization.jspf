@@ -20,14 +20,7 @@
     package must be made by a proxy admin user.
 --%>
 <%
-    HelperContext systemContext = com.kd.kineticSurvey.impl.RemedyHandler.getDefaultHelperContext();
-%>
-
-<%--
-    Retrieve the survey logger that allows us to write to the kslog.
---%>
-<%
-    org.apache.log4j.Logger logger = com.kd.kineticSurvey.impl.SurveyLogger.getLogger();
+    //HelperContext systemContext = com.kd.kineticSurvey.impl.RemedyHandler.getDefaultHelperContext();
 %>
 
 <%--
@@ -80,6 +73,9 @@
     Include the package configuration file.
 --%>
 <%@include file="../../config/config.jspf" %>
+
+<%-- Include the package language initialization file. --%>
+<%@include file="languageInitialization.jspf" %>
 
 <%--
     Create an ARServerUser instance that will be used as an admin proxy user to

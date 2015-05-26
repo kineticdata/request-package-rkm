@@ -1,12 +1,15 @@
 <%-- Set the values of the themes configurable settings. --%>
 <%
+    // Define url to package portal page
+    bundle.setProperty("rkmUrl", bundle.getProperty("displayPageUrlSlug") + "RKM");
+    
     // Create a bunlde object for server-side configuration only.
     Bundle serverSideBundle = new Bundle(request);
     serverSideBundle.setProperty("rkmAdminUsername", systemContext.getUserName());
     serverSideBundle.setProperty("rkmAdminPassword", systemContext.getPassword());
-    serverSideBundle.setProperty("rkmServer", "");
-    serverSideBundle.setProperty("rkmLocale", "");
-    serverSideBundle.setProperty("rkmPort", "");
+    serverSideBundle.setProperty("rkmServer", "emu.kineticdata.com");
+    serverSideBundle.setProperty("rkmLocale", "en");
+    serverSideBundle.setProperty("rkmPort", "3000");
 
     // General configuration.
     bundle.setProperty("commentUrl", pathHelper.templateNameUrl("RKMComment"));
