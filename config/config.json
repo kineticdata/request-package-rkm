@@ -41,6 +41,14 @@
             "icon": "<i class=\"fa fa-book\"></i>",
             "displayName": "RKM",
             "sortOrder": 5
+        },
+        "rkmFrame": {
+            "label": "Remedy Knowledge Management",
+            "class": "rkm",
+            "description": "Remedy Knowledge Management",
+            "icon": "<i class=\"fa fa-book\"></i>",
+            "displayName": "RKMFrame",
+            "sortOrder": 5
         }
     }
 }

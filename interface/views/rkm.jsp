@@ -11,13 +11,16 @@
 <!-- Page Stylesheets -->
 <link rel="stylesheet" href="<%= bundle.packagePath()%>assets/css/rkm.css" type="text/css" />
 <!-- Page Javascript -->
-<script type="text/javascript" src="<%=bundle.packagePath()%>assets/js/rkm.js"></script>
+<script type="text/javascript" src="<%=bundle.packagePath()%>assets/js/package.js"></script>
 
 <section id="service-section">
     <div class="container">
         <div id="title" class="col-xs-12">
-            <h2 class="color-primary">Remedy Knowledge Management</h2>
+            <h2>Remedy Knowledge Management</h2>
         </div>
+        <%
+        if(!"resultsOnly".equals(request.getParameter("return"))){
+        %>
         <div id="search" class="col-xs-12">
             <form id="searchTerms" class="rkm-search">
                 <label class="hide" for="mustHave"></label>
@@ -27,6 +30,7 @@
                 </span>
             </form>
         </div>
+        <% } %>
         <div id="messages" class="col-xs-12">
         </div>
         <div id="results" class="col-xs-12">
