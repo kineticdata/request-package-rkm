@@ -127,3 +127,40 @@
         serverUser.login();
     }
 %>
+
+<%--
+    Define Result Types for requesting RKM data
+    Result Types: What format the data should be returned in.
+        RESULT: Returns only the formatted data
+        SEARCH: Returns the formatted data with title and search bar
+        CONTAINER: Returns the entire page with the container (Default)
+--%>
+<%!
+    public enum RKMResultType {
+	   RESULT("result"), SEARCH("search"), CONTAINER("container");
+	    
+	    private final String value;
+	    RKMResultType(String value) { 
+	        this.value = value; 
+	    }
+	    public String valueOf() { 
+	        return value; 
+	    }
+	    public static RKMResultType getByValue(String value){
+	    	if (value != null){
+		        for(RKMResultType resultType : values()){
+		            if( resultType.valueOf().equals(value.toLowerCase())){
+		                return resultType;
+		            }
+		        }
+	    	}
+	        return CONTAINER;
+	    }
+	    public Boolean equals(RKMResultType resultType){
+	    	if (resultType != null){
+	    		return this.value.equals(resultType.valueOf());	
+	    	}
+	    	return false;
+	    }
+	}
+%>

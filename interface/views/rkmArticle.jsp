@@ -58,7 +58,7 @@
 <%@include file="../../../../core/interface/fragments/packageJsInitialization.jspf" %>
 
         <!-- Page Stylesheets -->
-        <link rel="stylesheet" href="<%= bundle.packagePath()%>assets/css/rkm.css" type="text/css" />
+        <link rel="stylesheet" href="<%= bundle.packagePath()%>assets/css/package.css" type="text/css" />
         <link rel="stylesheet" href="<%= bundle.packagePath()%>assets/css/rkmArticle.css" type="text/css" />
         <!-- Page Javascript -->
         <script type="text/javascript" src="<%=bundle.packagePath()%>assets/js/rkmArticle.js"></script>

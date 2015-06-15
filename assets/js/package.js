@@ -4,33 +4,36 @@
      *   This section is executed on page load to register events and otherwise manipulate the DOM.
      *--------------------------------------------------------------------------------------------*/
     $(function() {
-        // Check if we are trying to call the page with 
-        // predefined search criteria via query param
-        if(typeof BUNDLE.common.getUrlParameters().mustHave != "undefined"){
-            var params = "mustHave=" + decodeURIComponent(BUNDLE.common.getUrlParameters().mustHave);
+    	// If URL contains query parameter, search by that parameter
+    	if (queryParameterExists){
+    		var params = {
+            	"q": queryParameter
+            };
             package.getSearchResults(params);
-        }
-        // Then check for hash variable - this is required
-        // when calling as ajax within a different page
-        else if(typeof $(location).attr('hash') != "undefined"){
-            var hashValue = $(location).attr('hash').substr(1);
-            var params = "mustHave=" + decodeURIComponent(hashValue);
-            package.getSearchResults(params);
-        }
+    	}
+    	// If URL contains a hash, search by the hash value
+    	else if ($(location).attr('hash')){
+    		var params = {
+            	"q": $(location).attr('hash').substr(1)
+            };
+    		package.getSearchResults(params);
+    	}
 
-        // Here we set the focus to the input box that gathers the search terms
-        $("form#searchTerms input#mustHave").focus();
+        // Set the focus to the search box
+        $("form#rkm-search-form input").focus();
         
-        // On submit of the search terms form we call the RKMQuery jsp which returns
+        // On submit of the search terms form we call the RKMQuery.json.jsp which returns
         // a json result that represents the matching articles.  We use this json
         // result to generate an html table.  Each row in the table has a clicked
         // handler bound to it that retrieves the article (defined below).
-        $("form#searchTerms").submit(function() {
-            if ( $(this).find("input#mustHave").val() === "" ) {
-                $("#messages").html('<div class="message">Please enter search terms.</div>');
-            } else {
-                package.getSearchResults($(this).serialize());
-            }
+        $("form#rkm-search-form").submit(function(e) {
+        	e.preventDefault();
+        	var $searchInput = $(this).find('input');
+        	$searchInput.blur();
+        	var params = {
+            	"q": $searchInput.val()
+            };
+            package.getSearchResults(params);
             return false;
         });
     });
@@ -49,84 +52,44 @@
     
     
     package.getSearchResults = function(parameters) {
-        var params = parameters
-        // This object maps the source type returned by the multi query jsp to a
-        // camel-case version used in css classes and jsp names.
-        var sourceMap = {
-            "Decision Tree": "<i class='fa fa-filter' data-description='Decision Tree'></i>",
-            "How To": "<i class='fa fa-info-circle' data-description='How To'></i>",
-            "Known Error": "<i class='fa fa-exclamation-triangle' data-description='Known Error'></i>",
-            "Problem Solution": "<i class='fa fa-question-circle' data-description='Problem Solution'></i>",
-            "Reference": "<i class='fa fa-archive' data-description='Reference'></i>"
-        };
-
-        BUNDLE.ajax({
-            type: 'get',
-            url: BUNDLE.config.rkmUrl + '&callback=rkm',
-            data: params,
-            beforeSend: function(jqXHR, settings) {
-                $("#messages").html('<div class="message"><i class="fa fa-spinner"></i> Searching...</div>');
-            },
-            success: function(data, textStatus, jqXHR) {
-                var qtipOptions = {
-                    content: {
-                        attr: 'data-description'
-                    },
-                    style: {
-                        classes: 'qtip-tipsy qtip-shadow',
-                        tip: {
-                            corner: true
-                        }
-                    },
-                    position: {
-                        my: 'right center',
-                        at: 'left middle'
-                    }
-                };
-                var results = data;
-              var resultCount = 0;
-                $("#results").empty();
-                for (var i in results) {
-                if (results[i]["Source"] == null){continue;}
-                
-                    var articleSource = results[i]["Source"].substring(0, 1).toLowerCase() + results[i]["Source"].substring(1).replace(/ /g,"");
-
-                    var resultDiv = $('<div class="result"></div>');
-                    
-                    var titleDiv = $('<div class="clearfix"></div>');
-                    titleDiv.append('<div class="titleText col-xs-10"><a>' + results[i]["Article Title"] + '</a></div>');
-                    (function(articleSource, articleId){
-                        $(titleDiv).find('div.titleText a').on('click', function(){
-                            package.loadArticle(articleSource, articleId);
-                        });
-                    })(articleSource, results[i]["Article ID"]);
-                    
-                    titleDiv.append('<div class="icon col-xs-2" title="' + results[i]["Source"] + '">' + sourceMap[results[i]["Source"]] + '</div>');
-                    $(titleDiv).find('div.icon i').qtip(qtipOptions).qtip('api');
-                    resultDiv.append(titleDiv);
-                    
-                    resultDiv.append('<div class="summary">' + results[i]["Summary"] + '</div>');
-                    
-                    var attrDiv = $('<div class="clearfix"></div>');
-                    attrDiv.append('<div class="article-attribute col-xs-6">ID: ' + results[i]["Article ID"] + '</div>');
-                    attrDiv.append('<div class="article-attribute col-xs-6">Created ' + results[i]["Created Ago"] + ' ago</div>');
-                    resultDiv.append(attrDiv);
-                    
-                    resultDiv.append('<div class="article-content hide" id="article-' + results[i]["Article ID"] + '"></div>');
-
-
-                    $("#results").append(resultDiv);
-                  resultCount++;
-                }                  
-                $("#messages").html('<div class="message">Your search returned ' + resultCount + ' results.</div>');
-            },
-            error: function(data) {
-                $("#messages").html('<div class="message error">An error occurred during the search.</div>');
-            }
-        });
+        var params = parameters;
+        params.return = "html";
+        console.log(params);
+        var $searchInput = $('.rkm-search input');
+        var $searchButtonIcon = $('.rkm-search button i');
+        var $searchMessage = $('.rkm-message');
+        var $searchError = $('.rkm-error');
+        var $searchResults = $('.rkm-results');
+        if ($.trim(params.q)){
+	        BUNDLE.ajax({
+	            type: 'get',
+	            url: BUNDLE.config.rkmUrl + '&callback=rkm',
+	            data: params,
+	            dataType: "html",
+	            beforeSend: function(jqXHR, settings) {
+	            	$searchButtonIcon.find('button i').removeClass('fa-search').addClass('fa-spinner fa-spin');
+	            },
+	            success: function(data, textStatus, jqXHR) {
+	            	var count = $searchResults.html(data).find('.rkm-count').data('rkm-count');
+	            	$searchMessage.html(count + ' Result' + (count != 1 ? 's' : '')).css('display', 'table-cell');
+	                $searchButtonIcon.removeClass('fa-spinner fa-spin').addClass('fa-search');
+	            },
+	            error: function(jqXHR) {
+	            	$searchMessage.html('<i class="fa fa-exclamation-triangle"></i> Error').css('display', 'table-cell');
+	            	$searchButtonIcon.removeClass('fa-spinner fa-spin').addClass('fa-search');
+	            }
+	        });
+        }
+        else {
+        	$searchError.text('Required').css('display', 'table-cell');
+        	$searchInput.val('').one('keydown', function(event){
+        		$searchError.empty().hide();
+    		});
+        }
     }
 
     package.loadArticle = function(articleSource, articleId){
+    	console.log('loading article');
         var closeOnly = $('div#article-' + articleId).hasClass('selected-article');
         $('div.selected-article.show').empty().toggleClass('selected-article show');
 

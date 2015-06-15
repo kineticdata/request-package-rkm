@@ -32,6 +32,14 @@
             "content": "interface/callbacks/incrementRelevance.jsp"
         }
     },
+    "searchConfig": {
+        "displayName": "RKM",
+        "params": {
+            "view": ["search"],
+            "name": ["RKM"]
+        },
+        "placeholder": "Search RKM"
+    },
     "links": {
         "rkm": {
             "type": "main-menu",
@@ -47,8 +55,7 @@
             "class": "rkm",
             "description": "Remedy Knowledge Management",
             "icon": "<i class=\"fa fa-book\"></i>",
-            "displayName": "RKMFrame",
-            "sortOrder": 5
+            "displayName": "RKMFrame"
         }
     }
 }

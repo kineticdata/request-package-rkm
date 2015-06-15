@@ -16,11 +16,19 @@
             this.query = buildQuery();
         }
         
+        public String search(com.bmc.arsys.api.ARServerUser serverUser) throws com.bmc.arsys.api.ARException, Exception {
+        	return org.json.simple.JSONValue.toJSONString( performSearch(serverUser) );
+        }
+        
+        public ArrayList<LinkedHashMap> searchData(com.bmc.arsys.api.ARServerUser serverUser) throws com.bmc.arsys.api.ARException, Exception {
+            return performSearch(serverUser);
+        }
+        
         /**
          * @return 
          * @throws com.bmc.arsys.api.ARException
          */
-        public String search(com.bmc.arsys.api.ARServerUser serverUser) throws com.bmc.arsys.api.ARException, Exception {
+        private ArrayList<LinkedHashMap> performSearch(com.bmc.arsys.api.ARServerUser serverUser) throws com.bmc.arsys.api.ARException, Exception {
             // Convert the query to a qual
             com.bmc.arsys.api.QualifierInfo qual = serverUser.parseQualification(TARGETFORM, query);
 
@@ -112,7 +120,7 @@
                     outputCollection.add(myHashMap);
                 }
             }
-            return org.json.simple.JSONValue.toJSONString(outputCollection);
+            return outputCollection;
         }
 
         private String buildQuery() throws Exception {
