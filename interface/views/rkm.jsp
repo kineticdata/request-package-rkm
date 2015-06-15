@@ -11,7 +11,6 @@
     var resultType = "<%=resultType.valueOf()%>";
     var queryParameterExists = <%=hasQuery%>;
     var queryParameter = "<%=query%>";
-    console.log('has query param: ' + queryParameterExists);
 </script>
 <!-- Page Stylesheets -->
 <link rel="stylesheet" href="<%= bundle.packagePath()%>assets/css/package.css" type="text/css" />

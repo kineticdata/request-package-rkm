@@ -3,7 +3,7 @@
     RKMQuery.json.jsp - searches RKM
     Parameters:
         q: The search term(s) *Required*
-        return: [html/json] Do you want HTML of JSON returned (Default=json) *Optional*
+        returnType: [html/json] Do you want HTML of JSON returned (Default=json) *Optional*
         count: [true/false] If returning HTML, do you want count div to be visible (Default=false) *Optional*
  --%>
 <%@include file="../../framework/includes/packageInitialization.jspf"%>
@@ -19,10 +19,10 @@
             String mayHave = ""; //request.getParameter("mayHave");
             String mustNotHave = ""; //request.getParameter("mustNotHave");
 
-            // Should we return formatted HTML
+            // Is search term passed in
             Boolean validRequest = request.getParameter("q") != null && request.getParameter("q").length() > 0 ? true : false;
             // Should we return formatted HTML
-            Boolean returnHTML = request.getParameter("return") != null && request.getParameter("return").equalsIgnoreCase("html") ? true : false;
+            Boolean returnHTML = request.getParameter("returnType") != null && request.getParameter("returnType").equalsIgnoreCase("html") ? true : false;
             // Should we show the count
             Boolean showCount = request.getParameter("count") != null && request.getParameter("count").equalsIgnoreCase("true") ? true : false;
             

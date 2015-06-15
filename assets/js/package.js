@@ -27,7 +27,7 @@
         // result to generate an html table.  Each row in the table has a clicked
         // handler bound to it that retrieves the article (defined below).
         $("form#rkm-search-form").submit(function(e) {
-        	e.preventDefault();
+       		e.preventDefault();
         	var $searchInput = $(this).find('input');
         	$searchInput.blur();
         	var params = {
@@ -53,8 +53,7 @@
     
     package.getSearchResults = function(parameters) {
         var params = parameters;
-        params.return = "html";
-        console.log(params);
+        params.returnType = "html";
         var $searchInput = $('.rkm-search input');
         var $searchButtonIcon = $('.rkm-search button i');
         var $searchMessage = $('.rkm-message');
@@ -89,7 +88,6 @@
     }
 
     package.loadArticle = function(articleSource, articleId){
-    	console.log('loading article');
         var closeOnly = $('div#article-' + articleId).hasClass('selected-article');
         $('div.selected-article.show').empty().toggleClass('selected-article show');
 
