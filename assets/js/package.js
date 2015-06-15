@@ -66,7 +66,7 @@
 	            data: params,
 	            dataType: "html",
 	            beforeSend: function(jqXHR, settings) {
-	            	$searchButtonIcon.find('button i').removeClass('fa-search').addClass('fa-spinner fa-spin');
+	            	$searchButtonIcon.removeClass('fa-search').addClass('fa-spinner fa-spin');
 	            },
 	            success: function(data, textStatus, jqXHR) {
 	            	var count = $searchResults.html(data).find('.rkm-count').data('rkm-count');
